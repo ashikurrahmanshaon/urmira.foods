@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2, ShoppingBag, Check, ArrowLeft, ShieldCheck, Truck, CheckCircle2, Package, ArrowRight, Lock, Printer, FileText, Zap } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -18,6 +18,13 @@ function Cart() {
 
   const shippingCost = deliveryZone === 'inside' ? 70 : 130;
   const grandTotal = cartTotal + shippingCost;
+
+  // Scroll to top when order is placed so customer never sees the footer
+  useEffect(() => {
+    if (orderPlaced) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }, [orderPlaced]);
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
@@ -50,20 +57,25 @@ function Cart() {
     setPlacedOrder(orderData);
     setOrderPlaced(true);
     clearCart();
+    
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
   if (orderPlaced && placedOrder) {
     return (
-      <div className="container" style={{ padding: '2.5rem 1rem 4rem', maxWidth: '560px', textAlign: 'center' }}>
-        <div className="ios-checkout-card" style={{ padding: '2rem 1.35rem' }}>
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#ecfdf5', color: '#054231', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.15rem', boxShadow: '0 8px 24px rgba(16,185,129,0.2)' }}>
-            <Check size={32} />
+      <div className="container" style={{ padding: '3rem 1rem 5rem', maxWidth: '580px', minHeight: '75vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+        <div className="ios-checkout-card" style={{ padding: '2.25rem 1.5rem', width: '100%', boxShadow: '0 15px 45px rgba(5,66,49,0.1)' }}>
+          <div style={{ width: '68px', height: '68px', borderRadius: '50%', background: '#ecfdf5', color: '#054231', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem', boxShadow: '0 8px 24px rgba(16,185,129,0.2)' }}>
+            <Check size={36} />
           </div>
           <h2 style={{ fontSize: '1.75rem', color: '#054231', marginBottom: '0.25rem', fontWeight: '900', letterSpacing: '-0.02em' }}>
-            Order Confirmed!
+            অর্ডার সফল হয়েছে! 🎉
           </h2>
-          <p style={{ color: '#6e6e73', fontSize: '0.9rem', marginBottom: '1.35rem' }}>
-            Order Tracking ID: <strong style={{ color: '#054231' }}>#{placedOrder.orderId}</strong>
+          <p style={{ color: '#059669', fontWeight: '700', fontSize: '0.92rem', marginBottom: '0.35rem' }}>
+            আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে।
+          </p>
+          <p style={{ color: '#6e6e73', fontSize: '0.86rem', marginBottom: '1.35rem' }}>
+            অর্ডার ট্র্যাকিং আইডি: <strong style={{ color: '#054231' }}>#{placedOrder.orderId}</strong>
           </p>
 
           <div style={{ background: '#f5f5f7', padding: '1.25rem', borderRadius: '20px', textAlign: 'left', marginBottom: '1.35rem', border: '1px solid rgba(0,0,0,0.04)' }}>
