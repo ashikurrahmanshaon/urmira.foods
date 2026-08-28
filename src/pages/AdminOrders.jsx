@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   getOrders, 
+  fetchCloudOrders,
   updateOrderStatus, 
   updatePaymentStatus, 
   deleteOrder, 
@@ -52,7 +53,8 @@ import {
   ArrowUpRight,
   Globe,
   Leaf,
-  Layers
+  Layers,
+  Cloud
 } from 'lucide-react';
 
 function AdminOrders() {
@@ -85,10 +87,15 @@ function AdminOrders() {
   const [newPassword, setNewPassword] = useState('');
   const [credsSaved, setCredsSaved] = useState(false);
 
-  // Real-time synchronization
-  const refreshOrders = useCallback(() => {
+  // Real-time Cloud synchronization across all devices
+  const refreshOrders = useCallback(async () => {
     setIsRefreshing(true);
-    setOrders(getOrders());
+    try {
+      const liveOrders = await fetchCloudOrders();
+      setOrders(liveOrders);
+    } catch {
+      setOrders(getOrders());
+    }
     setLastSyncTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
     setTimeout(() => setIsRefreshing(false), 450);
   }, []);
@@ -110,7 +117,7 @@ function AdminOrders() {
       };
       window.addEventListener('storage', handleStorageChange);
 
-      // 4-Second auto-polling interval
+      // 4-Second auto-polling interval for Cloud DB sync
       const interval = setInterval(refreshOrders, 4000);
 
       return () => {
@@ -153,19 +160,19 @@ function AdminOrders() {
     setTimeout(() => setCredsSaved(false), 2500);
   };
 
-  const handleStatusChange = (orderId, newStatus) => {
-    const updated = updateOrderStatus(orderId, newStatus);
+  const handleStatusChange = async (orderId, newStatus) => {
+    const updated = await updateOrderStatus(orderId, newStatus);
     setOrders(updated);
   };
 
-  const handlePaymentStatusChange = (orderId, newStatus) => {
-    const updated = updatePaymentStatus(orderId, newStatus);
+  const handlePaymentStatusChange = async (orderId, newStatus) => {
+    const updated = await updatePaymentStatus(orderId, newStatus);
     setOrders(updated);
   };
 
-  const handleDelete = (orderId) => {
+  const handleDelete = async (orderId) => {
     if (window.confirm(`Are you sure you want to delete order #${orderId}?`)) {
-      const updated = deleteOrder(orderId);
+      const updated = await deleteOrder(orderId);
       setOrders(updated);
     }
   };
@@ -621,11 +628,12 @@ function doGet(e) { return doPost(e); }`;
           <div className="executive-nav-right">
             <div className="live-sync-indicator-pill">
               <span className="live-sync-green-dot"></span>
-              <span>Live Sync</span>
+              <Cloud size={13} color="#10b981" />
+              <span>Cloud DB 24/7 Live</span>
               <button 
                 className={`btn-sync-refresh ${isRefreshing ? 'spinning' : ''}`}
                 onClick={refreshOrders}
-                title="Force Sync Now"
+                title="Force Sync Cloud DB Now"
               >
                 <RotateCw size={12} />
               </button>
@@ -644,7 +652,7 @@ function doGet(e) { return doPost(e); }`;
 
             <div className="admin-user-capsule">
               <div className="admin-avatar-dot"></div>
-              <span>admin</span>
+              <span>{newUsername || 'urmi'}</span>
             </div>
 
             <button 

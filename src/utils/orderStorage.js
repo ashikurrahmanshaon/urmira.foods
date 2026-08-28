@@ -91,6 +91,39 @@ const INITIAL_SAMPLE_ORDERS = [
   }
 ];
 
+// Global 24/7 Real-Time Cloud Database Endpoint for Urmira.com
+const CLOUD_DB_ENDPOINT = 'https://urmira-cloud-default-rtdb.firebaseio.com/orders.json';
+
+// Fetch all orders from Cloud Database across all devices
+export const fetchCloudOrders = async () => {
+  try {
+    const res = await fetch(CLOUD_DB_ENDPOINT, { cache: 'no-cache' });
+    if (!res.ok) throw new Error('Cloud fetch failed');
+    const data = await res.json();
+    if (!data) return [];
+    
+    // Firebase returns either an array or an object map
+    let cloudList = [];
+    if (Array.isArray(data)) {
+      cloudList = data.filter(Boolean);
+    } else if (typeof data === 'object') {
+      cloudList = Object.values(data);
+    }
+
+    // Sort latest first
+    cloudList.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+    // Save to local cache
+    if (cloudList.length > 0) {
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(cloudList));
+    }
+    return cloudList;
+  } catch (err) {
+    console.warn('Cloud DB fetch fallback to localStorage:', err);
+    return getOrders();
+  }
+};
+
 export const getOrders = () => {
   try {
     const data = localStorage.getItem(ORDERS_KEY);
@@ -101,13 +134,12 @@ export const getOrders = () => {
     return JSON.parse(data);
   } catch (err) {
     console.error('Error reading orders from localStorage', err);
-    return [];
+    return INITIAL_SAMPLE_ORDERS;
   }
 };
 
 export const saveOrder = async (orderData) => {
   try {
-    const currentOrders = getOrders();
     const newOrder = {
       ...orderData,
       orderId: orderData.orderId || 'URM-' + Math.floor(100000 + Math.random() * 900000),
@@ -117,10 +149,27 @@ export const saveOrder = async (orderData) => {
       paymentMethod: orderData.paymentMethod || 'Cash on Delivery'
     };
 
-    const updated = [newOrder, ...currentOrders];
+    // 1. Save to LocalStorage immediately
+    const currentOrders = getOrders();
+    const updated = [newOrder, ...currentOrders.filter(o => o.orderId !== newOrder.orderId)];
     localStorage.setItem(ORDERS_KEY, JSON.stringify(updated));
 
-    // Send to Google Sheets Automation Webhook if configured
+    // 2. Save directly to 24/7 Global Cloud Database (Firebase RTDB REST)
+    try {
+      const orderCloudKey = newOrder.orderId.replace(/[^a-zA-Z0-9]/g, '_');
+      const singleOrderUrl = `https://urmira-cloud-default-rtdb.firebaseio.com/orders/${orderCloudKey}.json`;
+      
+      await fetch(singleOrderUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newOrder)
+      });
+      console.log('Order successfully synced to 24/7 Cloud DB:', newOrder.orderId);
+    } catch (cloudErr) {
+      console.warn('Cloud DB sync error (offline fallback saved):', cloudErr);
+    }
+
+    // 3. Send to Google Sheets Automation Webhook if configured
     sendWebhookAutomation(newOrder);
 
     return newOrder;
@@ -130,7 +179,7 @@ export const saveOrder = async (orderData) => {
   }
 };
 
-export const updateOrderStatus = (orderId, newStatus) => {
+export const updateOrderStatus = async (orderId, newStatus) => {
   const currentOrders = getOrders();
   let changedOrder = null;
   const updated = currentOrders.map(order => {
@@ -147,15 +196,25 @@ export const updateOrderStatus = (orderId, newStatus) => {
   });
   localStorage.setItem(ORDERS_KEY, JSON.stringify(updated));
 
-  // Sync updated status to Google Sheets automation webhook
+  // Sync updated status to Cloud DB
   if (changedOrder) {
+    try {
+      const orderCloudKey = orderId.replace(/[^a-zA-Z0-9]/g, '_');
+      await fetch(`https://urmira-cloud-default-rtdb.firebaseio.com/orders/${orderCloudKey}.json`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderStatus: newStatus, paymentStatus: changedOrder.paymentStatus })
+      });
+    } catch (e) {
+      console.warn('Cloud status update error:', e);
+    }
     sendWebhookAutomation(changedOrder);
   }
 
   return updated;
 };
 
-export const updatePaymentStatus = (orderId, newStatus) => {
+export const updatePaymentStatus = async (orderId, newStatus) => {
   const currentOrders = getOrders();
   const updated = currentOrders.map(order => {
     if (order.orderId === orderId) {
@@ -164,13 +223,37 @@ export const updatePaymentStatus = (orderId, newStatus) => {
     return order;
   });
   localStorage.setItem(ORDERS_KEY, JSON.stringify(updated));
+
+  // Sync to Cloud DB
+  try {
+    const orderCloudKey = orderId.replace(/[^a-zA-Z0-9]/g, '_');
+    await fetch(`https://urmira-cloud-default-rtdb.firebaseio.com/orders/${orderCloudKey}.json`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ paymentStatus: newStatus })
+    });
+  } catch (e) {
+    console.warn('Cloud payment update error:', e);
+  }
+
   return updated;
 };
 
-export const deleteOrder = (orderId) => {
+export const deleteOrder = async (orderId) => {
   const currentOrders = getOrders();
   const updated = currentOrders.filter(order => order.orderId !== orderId);
   localStorage.setItem(ORDERS_KEY, JSON.stringify(updated));
+
+  // Delete from Cloud DB
+  try {
+    const orderCloudKey = orderId.replace(/[^a-zA-Z0-9]/g, '_');
+    await fetch(`https://urmira-cloud-default-rtdb.firebaseio.com/orders/${orderCloudKey}.json`, {
+      method: 'DELETE'
+    });
+  } catch (e) {
+    console.warn('Cloud delete error:', e);
+  }
+
   return updated;
 };
 
