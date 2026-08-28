@@ -799,6 +799,126 @@ h1, h2, h3, h4 {
   color: var(--ios-green);
 }
 
+/* ==========================================================================
+   FLAGSHIP THREE TRUST PILLARS (AUTHENTIC & LUXURIOUS)
+   ========================================================================== */
+
+.pillars-grid-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+.ios-pillar-card {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 2.25rem 1.85rem;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 8px 30px rgba(5, 66, 49, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: var(--ios-spring-bounce);
+  position: relative;
+  overflow: hidden;
+}
+
+.ios-pillar-card:hover {
+  transform: translateY(-6px);
+  border-color: #a7f3d0;
+  box-shadow: 0 16px 40px rgba(5, 66, 49, 0.09);
+}
+
+.ios-pillar-card.highlight-pillar {
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  border-color: #a7f3d0;
+  box-shadow: 0 10px 32px rgba(16, 185, 129, 0.08);
+}
+
+.ios-pillar-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  transition: var(--ios-spring-bounce);
+}
+
+.ios-pillar-card:hover .ios-pillar-icon {
+  transform: scale(1.12) rotate(-6deg);
+}
+
+.ios-pillar-icon.icon-fresh {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1.5px solid #a7f3d0;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
+}
+
+.ios-pillar-icon.icon-pure {
+  background: linear-gradient(135deg, #054231 0%, #10b981 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(5, 66, 49, 0.25);
+}
+
+.ios-pillar-icon.icon-delivery {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1.5px solid #bfdbfe;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15);
+}
+
+.ios-pillar-title {
+  font-size: 1.22rem;
+  font-weight: 900;
+  color: #054231;
+  margin: 0 0 0.65rem;
+  letter-spacing: -0.02em;
+}
+
+.ios-pillar-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  flex: 1;
+}
+
+.pillar-authentic-tag {
+  display: inline-flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #054231;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.02em;
+}
+
+.ios-pillar-card.highlight-pillar .pillar-authentic-tag {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #059669;
+}
+
+@media (max-width: 900px) {
+  .pillars-grid-three {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .ios-pillar-card {
+    padding: 1.65rem 1.35rem;
+    border-radius: 22px;
+  }
+}
+
 .placeholder-caption-pure {
   font-size: 0.82rem;
   color: var(--ios-text-secondary);

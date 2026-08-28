@@ -51,7 +51,7 @@ function Home() {
   const faqs = [
     {
       q: 'উর্মিরা গাওয়া ঘি কেন অন্যান্য ব্র্যান্ড থেকে সেরা?',
-      a: 'আমরা খামারিদের খাঁটি গরুর দুধের ননী ও মাখন সংগ্রহ করে সম্পূর্ণ সনাতন ও প্রাকৃতিক পদ্ধতিতে ঘি তৈরি করি। কোনো প্রকার ডালডা, সুগন্ধি বা রাসায়নিক প্রিজারভেটিভ ব্যবহার করা হয় না।'
+      a: 'আমরা খামারিদের খাঁটি গরুর দুধের ননী ও মাখন সংগ্রহ করে সম্পূর্ণ ঐতিহ্যবাহী ও প্রাকৃতিক স্বাস্থ্যসম্মত পদ্ধতিতে ঘি তৈরি করি। কোনো প্রকার ডালডা, সুগন্ধি বা রাসায়নিক প্রিজারভেটিভ ব্যবহার করা হয় না।'
     },
     {
       q: 'খেজুরের পাওয়ার বোম্বে কী কী উপাদান রয়েছে?',
@@ -292,33 +292,42 @@ function Home() {
 
           <div className="pillars-grid-three">
             <div className="ios-pillar-card">
-              <div className="ios-pillar-icon">
+              <div className="ios-pillar-icon icon-fresh">
                 <Leaf size={24} />
               </div>
               <h3 className="ios-pillar-title">১০০% অর্গানিক ও ফ্রেশ</h3>
               <p className="ios-pillar-desc">
-                গ্রামের খামারিদের থেকে সরাসরি সংগৃহীত উপাদান। কোনো প্রিজারভেটিভ, ডালডা বা কৃত্রিম সুগন্ধি ব্যবহার করা হয় না।
+                গ্রামের নির্ভরযোগ্য খামারিদের থেকে সরাসরি সংগৃহীত উপাদান। কোনো প্রিজারভেটিভ, ডালডা বা কৃত্রিম ফ্লেভার নেই।
               </p>
+              <div className="pillar-authentic-tag">
+                <span>✓ ১০০% ন্যাচারাল উপাদান</span>
+              </div>
             </div>
 
-            <div className="ios-pillar-card">
-              <div className="ios-pillar-icon">
+            <div className="ios-pillar-card highlight-pillar">
+              <div className="ios-pillar-icon icon-pure">
                 <ShieldCheck size={24} />
               </div>
-              <h3 className="ios-pillar-title">খাঁটি সনাতন প্রস্তুত প্রণালী</h3>
+              <h3 className="ios-pillar-title">হস্তনির্মিত খাঁটি প্রস্তুত প্রণালী</h3>
               <p className="ios-pillar-desc">
-                ঐতিহ্যবাহী সনাতন পদ্ধতিতে হাতে তৈরি। কোনো প্রকার ক্ষতিকারক কেমিক্যাল বা কৃত্রিম রঙ ছাড়া শতভাগ খাঁটি।
+                ঐতিহ্যবাহী ও স্বাস্থ্যসম্মত প্রাকৃতিক পদ্ধতিতে তৈরি। কোনো প্রকার ক্ষতিকারক কেমিক্যাল বা কৃত্রিম রঙ ছাড়া শতভাগ খাঁটি।
               </p>
+              <div className="pillar-authentic-tag">
+                <span>✓ প্রিমিয়াম কোয়ালিটি পরীক্ষিত</span>
+              </div>
             </div>
 
             <div className="ios-pillar-card">
-              <div className="ios-pillar-icon">
+              <div className="ios-pillar-icon icon-delivery">
                 <Truck size={24} />
               </div>
               <h3 className="ios-pillar-title">দ্রুত ক্যাশ অন ডেলিভারি</h3>
               <p className="ios-pillar-desc">
-                সারাদেশে দ্রুততম সময়ে আপনার ঠিকানায় ডেলিভারি। পার্সেল দেখে ও যাচাই করে মূল্য পরিশোধের সুবিধা।
+                সারাদেশে দ্রুততম সময়ে আপনার ঠিকানায় ডেলিভারি। পার্সেল দেখে ও যাচাই করে মূল্য পরিশোধের নিশ্চয়তা।
               </p>
+              <div className="pillar-authentic-tag">
+                <span>✓ চেক করে পেমেন্ট সুবিধা</span>
+              </div>
             </div>
           </div>
         </div>
