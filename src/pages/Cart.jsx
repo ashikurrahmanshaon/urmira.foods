@@ -267,30 +267,11 @@ function Cart() {
               </div>
             ))}
           </div>
-
-          {/* Clean Trust Strip */}
-          <div className="cart-trust-row">
-            <div className="trust-micro-item">
-              <ShieldCheck size={16} color="#10b981" />
-              <span>১০০% খাঁটি পণ্যের নিশ্চয়তা</span>
-            </div>
-            <div className="trust-micro-item">
-              <Truck size={16} color="#10b981" />
-              <span>ক্যাশ অন ডেলিভারি</span>
-            </div>
-          </div>
         </div>
 
         {/* Right: 1-Step Cash on Delivery Form */}
         <div id="checkout-card-section" className="cart-right-col">
           <div className="ios-checkout-card">
-            <div className="checkout-badge-row">
-              <span className="checkout-badge-pill">
-                <Lock size={12} />
-                <span>FAST & SECURE 1-STEP ORDER</span>
-              </span>
-            </div>
-            
             <h2 className="checkout-card-title">ক্যাশ অন ডেলিভারিতে অর্ডার করুন</h2>
             <p className="checkout-card-sub">
               পণ্য হাতে পেয়ে দেখে ডেলিভারিম্যানকে মূল্য পরিশোধ করুন
@@ -306,6 +287,8 @@ function Cart() {
                   placeholder="যেমন: আশিকুর রহমান"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
+                  autoComplete="name"
+                  enterKeyHint="next"
                   required
                 />
               </div>
@@ -320,6 +303,8 @@ function Cart() {
                   placeholder="যেমন: 017XXXXXXXX"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
+                  autoComplete="tel"
+                  enterKeyHint="next"
                   required
                 />
               </div>
@@ -333,6 +318,8 @@ function Cart() {
                   rows="3"
                   value={customerAddress}
                   onChange={(e) => setCustomerAddress(e.target.value)}
+                  autoComplete="street-address"
+                  enterKeyHint="done"
                   required
                 ></textarea>
               </div>
