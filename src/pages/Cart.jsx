@@ -363,12 +363,6 @@ function Cart() {
                 </div>
               </div>
 
-              {/* Trust Pill Right Above Submit */}
-              <div className="checkout-instant-trust-bar">
-                <CheckCircle2 size={15} color="#10b981" />
-                <span>পার্সেল হাতে পেয়ে চেক করে পেমেন্ট করার সুবিধা</span>
-              </div>
-
               <button 
                 type="submit" 
                 className="btn btn-primary checkout-submit-btn"
