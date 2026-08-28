@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2, ShoppingBag, Check, ArrowLeft, ShieldCheck, Truck, CheckCircle2, Package, ArrowRight, Lock, Printer, FileText } from 'lucide-react';
+import { Trash2, ShoppingBag, Check, ArrowLeft, ShieldCheck, Truck, CheckCircle2, Package, ArrowRight, Lock, Printer, FileText, Zap } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { saveOrder } from '../utils/orderStorage';
 import InvoiceModal from '../components/InvoiceModal';
