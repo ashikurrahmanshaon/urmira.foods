@@ -10335,6 +10335,21 @@ h1, h2, h3, h4 {
   line-height: 1.4;
 }
 
+.invoice-verified-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #054231;
+  letter-spacing: 0.04em;
+  margin-top: 0.65rem;
+  padding: 0.3rem 0.65rem;
+  background: #f0fdf4;
+  border-radius: var(--radius-pill);
+  border: 1px dashed #86efac;
+}
+
 .invoice-calc-box {
   background: #f8fafc;
   border-radius: 16px;
