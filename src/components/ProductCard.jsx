@@ -11,7 +11,7 @@ function ProductCard({ product }) {
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart(product, 1, false);
+    addToCart(product, 1, true);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };

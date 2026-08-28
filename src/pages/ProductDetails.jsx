@@ -53,7 +53,7 @@ function ProductDetails() {
   };
 
   const handleAddToCart = () => {
-    addToCart(product, quantity, false);
+    addToCart(product, quantity, true);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
