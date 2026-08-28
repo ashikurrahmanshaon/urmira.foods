@@ -178,23 +178,14 @@ function Cart() {
       <div className="cart-luxury-grid">
         {/* Left: Bag Items */}
         <div className="cart-left-col">
-          <div className="cart-header-luxury-bar">
-            <div className="cart-title-hub-left">
-              <div className="cart-header-icon-disc">
-                <ShoppingBag size={18} color="#054231" />
-              </div>
-              <div>
-                <div className="cart-title-row-compact">
-                  <h1 className="cart-main-heading">Shopping Bag</h1>
-                  <span className="cart-item-count-badge">{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}</span>
-                </div>
-                <span className="cart-sub-status-text">১০০% ক্যাশ অন ডেলিভারি (চেক করে পেমেন্ট)</span>
-              </div>
+          <div className="cart-clean-header-row">
+            <div className="cart-title-clean-group">
+              <h1 className="cart-clean-heading">Shopping Bag</h1>
+              <span className="cart-clean-count-pill">{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}</span>
             </div>
 
-            <Link to="/shop" className="cart-add-more-pill-btn">
-              <span className="add-more-plus-symbol">+</span>
-              <span className="add-more-label">Add More Products</span>
+            <Link to="/shop" className="cart-continue-shopping-link">
+              <span>+ Add More Items</span>
             </Link>
           </div>
 
@@ -204,9 +195,9 @@ function Cart() {
             className="mobile-quick-jump-banner"
             onClick={scrollToCheckout}
           >
-            <Zap size={14} className="jump-zap-icon" />
-            <span>১-মিনিটে ক্যাশ অন ডেলিভারিতে অর্ডার করতে নিচে যান</span>
-            <ArrowRight size={14} />
+            <Zap size={13} className="jump-zap-icon" />
+            <span>সরাসরি ১-মিনিটে অর্ডার করতে নিচে যান</span>
+            <ArrowRight size={13} />
           </button>
           
           <div className="cart-items-list-card">
