@@ -40,9 +40,6 @@ function Header() {
 
   return (
     <>
-      {/* Apple Smooth Ambient Top Blur Wash (Melts text invisibly upon scroll) */}
-      <div className="header-ambient-blur-wash" aria-hidden="true" />
-
       <header className={`site-header ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className={`container header-inner ${isScrolled ? 'inner-scrolled' : ''}`}>
           {/* Brand Logo */}
