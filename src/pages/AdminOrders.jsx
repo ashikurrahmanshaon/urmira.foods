@@ -514,7 +514,7 @@ function doGet(e) { return doPost(e); }`;
               <input 
                 type="text" 
                 className="ios-input-field" 
-                placeholder="admin"
+                placeholder="Enter admin username"
                 value={usernameInput}
                 onChange={(e) => setUsernameInput(e.target.value)}
                 required
@@ -545,11 +545,7 @@ function doGet(e) { return doPost(e); }`;
               </div>
             </div>
 
-            <div className="login-default-hint">
-              <span>Default Credentials:</span> <strong>admin</strong> / <strong>urmira2026</strong>
-            </div>
-
-            <button type="submit" className="btn btn-primary login-submit-btn">
+            <button type="submit" className="btn btn-primary login-submit-btn" style={{ marginTop: '0.5rem' }}>
               <Lock size={16} />
               <span>Login to Executive Portal</span>
             </button>

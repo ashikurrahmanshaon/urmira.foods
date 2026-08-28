@@ -7,8 +7,8 @@ const SESSION_KEY = 'urmira_admin_session';
 
 // Default Admin Credentials
 const DEFAULT_CREDENTIALS = {
-  username: 'admin',
-  password: 'urmira2026'
+  username: 'urmi',
+  password: 'urmi30072800'
 };
 
 // Admin Authentication Management
@@ -19,7 +19,12 @@ export const getAdminCredentials = () => {
       localStorage.setItem(AUTH_KEY, JSON.stringify(DEFAULT_CREDENTIALS));
       return DEFAULT_CREDENTIALS;
     }
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    if (parsed.username === 'admin') {
+      localStorage.setItem(AUTH_KEY, JSON.stringify(DEFAULT_CREDENTIALS));
+      return DEFAULT_CREDENTIALS;
+    }
+    return parsed;
   } catch {
     return DEFAULT_CREDENTIALS;
   }
