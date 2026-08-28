@@ -14,6 +14,11 @@ function ProductDetails() {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
+  // Extract ID from path params or query params (e.g., product.html?id=1)
+  const urlParams = new URLSearchParams(window.location.search);
+  const queryId = urlParams.get('id');
+  const targetId = id || queryId || '1';
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -21,9 +26,9 @@ function ProductDetails() {
       behavior: 'instant'
     });
     setActiveImgIndex(0);
-  }, [id]);
+  }, [id, queryId]);
 
-  const product = products.find((p) => p.id === parseInt(id));
+  const product = products.find((p) => p.id === parseInt(targetId)) || products[0];
 
   if (!product) {
     return (

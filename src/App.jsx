@@ -27,14 +27,24 @@ function AppLayout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/shop.html" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/product.html" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/cart.html" element={<Cart />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog.html" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/shipping-delivery" element={<ShippingDelivery />} />
+          <Route path="/shipping-delivery.html" element={<ShippingDelivery />} />
           <Route path="/return-policy" element={<ReturnPolicy />} />
+          <Route path="/return-policy.html" element={<ReturnPolicy />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/contact.html" element={<Contact />} />
           <Route path="/admin" element={<AdminOrders />} />
+          <Route path="/admin.html" element={<AdminOrders />} />
+          {/* Catch-all fallback so users never see a blank screen */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
       {!isAdmin && <Footer />}
