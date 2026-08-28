@@ -1,0 +1,431 @@
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { ShoppingBag, Star, Check, ChevronLeft, ChevronRight, PhoneCall, Zap, Award, Sparkles, ZoomIn, X, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { products } from '../data/products';
+import { useCart } from '../context/CartContext';
+
+function ProductDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
+  const [activeTab, setActiveTab] = useState('benefits'); // benefits | ingredients | delivery
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+    setActiveImgIndex(0);
+  }, [id]);
+
+  const product = products.find((p) => p.id === parseInt(id));
+
+  if (!product) {
+    return (
+      <div className="container" style={{ textAlign: 'center', padding: '5rem 1.5rem' }}>
+        <h2 style={{ fontSize: '1.8rem', color: '#054231' }}>Product Not Found</h2>
+        <Link to="/shop" className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
+          <span>Back to Shop</span>
+        </Link>
+      </div>
+    );
+  }
+
+  const gallery = product.gallery && product.gallery.length > 0 
+    ? product.gallery 
+    : [product.image || (product.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg')];
+
+  const currentImage = gallery[activeImgIndex] || gallery[0];
+
+  const handlePrevImage = (e) => {
+    e?.stopPropagation();
+    setActiveImgIndex((prev) => (prev === 0 ? gallery.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e) => {
+    e?.stopPropagation();
+    setActiveImgIndex((prev) => (prev === gallery.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity, false);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
+  const handleBuyNow = () => {
+    addToCart(product, quantity, false);
+    navigate('/cart');
+  };
+
+  const savings = product.oldPrice ? product.oldPrice - product.price : 0;
+  const englishBadge = product.id === 1 ? '100% PURE & ARTISAN' : 'ORGANIC ENERGY BOOSTER';
+  const englishSubtitle = product.id === 1 ? 'Handcrafted Pure Cow Ghee' : 'Special Khurjur & Dry Fruits Power Bomb';
+  const displayTitle = product.name.split('(')[0].trim();
+
+  return (
+    <div className="product-details-page-wrapper">
+      <div className="container">
+        {/* Back Navigation Button */}
+        <div className="detail-top-nav-bar">
+          <Link to="/shop" className="detail-back-capsule">
+            <ChevronLeft size={16} />
+            <span>Back to Products</span>
+          </Link>
+        </div>
+
+        {/* Main 2-Column Responsive Layout */}
+        <div className="product-showcase-master-grid">
+          {/* Left Column: Interactive Product Showcase */}
+          <div className="product-gallery-column">
+            <div className="gallery-main-card">
+              {/* Top Badges */}
+              <div className="gallery-badges-overlay">
+                <span className="gallery-floating-badge">
+                  <Sparkles size={12} />
+                  <span>{englishBadge}</span>
+                </span>
+                <span className="gallery-counter-tag">
+                  {activeImgIndex + 1} / {gallery.length}
+                </span>
+              </div>
+
+              {/* Main Image Frame (Studio Portrait) */}
+              <div 
+                className="gallery-photo-viewport"
+                onClick={() => setIsLightboxOpen(true)}
+                title="Click to Zoom Fullscreen"
+              >
+                <img 
+                  src={currentImage} 
+                  alt={`${product.name} - View ${activeImgIndex + 1}`} 
+                  className="gallery-active-img"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = product.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg';
+                  }}
+                />
+
+                {/* Floating Bottom Pills */}
+                <div className="gallery-bottom-overlay">
+                  <div className="gallery-proof-pill">
+                    <ShieldCheck size={14} color="#10b981" />
+                    <span>100% Pure & Lab Tested</span>
+                  </div>
+
+                  <div className="gallery-zoom-pill">
+                    <ZoomIn size={13} />
+                    <span>Zoom</span>
+                  </div>
+                </div>
+
+                {/* Left & Right Arrow Controls */}
+                {gallery.length > 1 && (
+                  <>
+                    <button 
+                      type="button"
+                      className="gallery-arrow-button arrow-prev" 
+                      onClick={handlePrevImage}
+                      aria-label="Previous Image"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button 
+                      type="button"
+                      className="gallery-arrow-button arrow-next" 
+                      onClick={handleNextImage}
+                      aria-label="Next Image"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Thumbnails Row */}
+              {gallery.length > 1 && (
+                <div className="gallery-thumbs-track">
+                  {gallery.map((imgUrl, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`gallery-thumb-item ${activeImgIndex === idx ? 'selected' : ''}`}
+                      onClick={() => setActiveImgIndex(idx)}
+                      aria-label={`View photo ${idx + 1}`}
+                    >
+                      <img 
+                        src={imgUrl} 
+                        alt={`Thumb ${idx + 1}`} 
+                        className="thumb-inner-img"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = product.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg';
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right Column: Info & Purchase Card */}
+          <div className="product-info-column">
+            <div className="product-info-card">
+              <span className="info-top-badge">
+                <Award size={13} />
+                <span>{englishBadge}</span>
+              </span>
+              
+              <h1 className="info-product-title">{displayTitle}</h1>
+              <span className="info-product-subtitle">{englishSubtitle}</span>
+
+              {/* Rating & Net Weight */}
+              <div className="info-meta-row">
+                <div className="info-stars-flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} fill="#d97706" color="#d97706" />
+                  ))}
+                </div>
+                <span className="info-rating-label">{product.rating} ({product.reviewsCount}+ Reviews)</span>
+                <span className="info-weight-pill">Net: 500g</span>
+              </div>
+
+              {/* Price Row */}
+              <div className="info-price-container">
+                <div className="info-price-main">
+                  ৳ {product.price.toLocaleString('en-US')}
+                </div>
+                {product.oldPrice && (
+                  <div className="info-price-old">
+                    ৳ {product.oldPrice.toLocaleString('en-US')}
+                  </div>
+                )}
+                {savings > 0 && (
+                  <span className="info-save-tag">
+                    SAVE ৳ {savings}
+                  </span>
+                )}
+              </div>
+
+              <p className="info-short-summary">
+                {product.shortDesc}
+              </p>
+
+              {/* Clean English Tabs */}
+              <div className="info-tabs-wrapper">
+                <div className="info-tab-headers">
+                  <button 
+                    type="button"
+                    className={`info-tab-btn ${activeTab === 'benefits' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('benefits')}
+                  >
+                    Benefits
+                  </button>
+                  <button 
+                    type="button"
+                    className={`info-tab-btn ${activeTab === 'ingredients' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('ingredients')}
+                  >
+                    Ingredients
+                  </button>
+                  <button 
+                    type="button"
+                    className={`info-tab-btn ${activeTab === 'delivery' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('delivery')}
+                  >
+                    Delivery & COD
+                  </button>
+                </div>
+
+                <div className="info-tab-panel">
+                  {activeTab === 'benefits' && (
+                    <ul className="tab-points-list">
+                      {product.benefits.map((b, i) => (
+                        <li key={i} className="tab-point-item">
+                          <CheckCircle2 size={16} color="#10b981" />
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {activeTab === 'ingredients' && (
+                    <div className="tab-text-block">
+                      {product.id === 1 ? (
+                        <p>100% pure artisan cow milk butter and cream. Naturally simmered without any chemicals, artificial fragrance, or adulteration.</p>
+                      ) : (
+                        <p>Premium Maryam & Ajwa dates, pure raw organic honey, roasted cashews, almonds, pistachios, walnuts, and nutritious energy seeds.</p>
+                      )}
+                    </div>
+                  )}
+
+                  {activeTab === 'delivery' && (
+                    <div className="tab-text-block">
+                      <p>• <strong>Inside Dhaka:</strong> Fast home delivery within 24-48 hours (Charge: ৳ 70).</p>
+                      <p>• <strong>Outside Dhaka:</strong> Nationwide home delivery within 48-72 hours (Charge: ৳ 130).</p>
+                      <p>• <strong>Cash on Delivery (COD):</strong> Full parcel inspection available before payment.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Clean English Quantity Picker */}
+              <div className="info-quantity-row">
+                <span className="qty-label">Quantity:</span>
+                <div className="qty-counter-control">
+                  <button 
+                    type="button"
+                    className="qty-step-btn"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    aria-label="Decrease quantity"
+                  >-</button>
+                  <span className="qty-step-value">{quantity}</span>
+                  <button 
+                    type="button"
+                    className="qty-step-btn"
+                    onClick={() => setQuantity(quantity + 1)}
+                    aria-label="Increase quantity"
+                  >+</button>
+                </div>
+              </div>
+
+              {/* Clean English 1-Click Purchase Buttons */}
+              <div className="info-action-buttons">
+                <button 
+                  type="button"
+                  className={`btn-action-bag ${added ? 'added' : ''}`}
+                  onClick={handleAddToCart}
+                  aria-label="Add to Bag"
+                >
+                  {added ? (
+                    <>
+                      <Check size={18} color="#054231" />
+                      <span>Added to Bag</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingBag size={18} />
+                      <span>Add to Bag</span>
+                    </>
+                  )}
+                </button>
+
+                <button 
+                  type="button"
+                  className="btn-action-buy-now"
+                  onClick={handleBuyNow}
+                  aria-label="Order Now"
+                >
+                  <Zap size={18} />
+                  <span>Order Now</span>
+                </button>
+              </div>
+
+              {/* Direct Phone Helpline */}
+              <a href="tel:01712345678" className="info-helpline-anchor">
+                <div className="phone-pulsing-badge">
+                  <PhoneCall size={14} />
+                </div>
+                <span>Direct Order Hotline: <strong>01712-345678</strong></span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. Real Quality Proof Grid */}
+        <section className="product-proof-showcase-section">
+          <div className="proof-head-box">
+            <span className="proof-pill-tag">
+              <Sparkles size={12} />
+              <span>REAL QUALITY PROOF</span>
+            </span>
+            <h2 className="proof-heading">
+              Authentic Unboxing & Quality Proof
+            </h2>
+            <p className="proof-subtext">
+              100% genuine studio & packaging photography from our authentic production.
+            </p>
+          </div>
+
+          <div className="proof-cards-grid">
+            {gallery.map((imgUrl, index) => (
+              <div 
+                key={index} 
+                className="proof-single-card"
+                onClick={() => {
+                  setActiveImgIndex(index);
+                  setIsLightboxOpen(true);
+                }}
+              >
+                <div className="proof-img-holder">
+                  <img 
+                    src={imgUrl} 
+                    alt={`${displayTitle} Photo ${index + 1}`} 
+                    className="proof-img-element"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = product.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg';
+                    }}
+                  />
+                  <div className="proof-zoom-overlay">
+                    <ZoomIn size={24} color="#ffffff" />
+                    <span>View Full Photo</span>
+                  </div>
+                </div>
+                <div className="proof-card-label">
+                  <ShieldCheck size={14} color="#10b981" />
+                  <span>Original Quality - Photo #{index + 1}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Lightbox Modal */}
+        {isLightboxOpen && (
+          <div className="gallery-lightbox-overlay" onClick={() => setIsLightboxOpen(false)}>
+            <div className="gallery-lightbox-content" onClick={(e) => e.stopPropagation()}>
+              <button 
+                type="button"
+                className="lightbox-close-btn"
+                onClick={() => setIsLightboxOpen(false)}
+                aria-label="Close Lightbox"
+              >
+                <X size={22} />
+              </button>
+
+              <img 
+                src={currentImage} 
+                alt={product.name} 
+                className="lightbox-full-img" 
+              />
+
+              <div className="lightbox-nav-footer">
+                <button type="button" className="lightbox-nav-btn" onClick={handlePrevImage}>
+                  <ChevronLeft size={20} />
+                  <span>Prev</span>
+                </button>
+                <span className="lightbox-counter-label">
+                  {activeImgIndex + 1} / {gallery.length}
+                </span>
+                <button type="button" className="lightbox-nav-btn" onClick={handleNextImage}>
+                  <span>Next</span>
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default ProductDetails;
