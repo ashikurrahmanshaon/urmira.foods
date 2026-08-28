@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import html2canvas from 'html2canvas';
-import { Printer, Download, X, CheckCircle, Leaf, ShieldCheck, Phone, Mail, MapPin, Loader2 } from 'lucide-react';
+import { Printer, Download, X, CheckCircle, Leaf, ShieldCheck, Phone, Mail, MapPin, Loader2, FileText } from 'lucide-react';
 
 function InvoiceModal({ order, onClose }) {
   const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   if (!order) return null;
 
-  const formattedDate = new Date(order.createdAt || Date.now()).toLocaleDateString('en-US', {
+  const formattedDate = new Date(order.createdAt || Date.now()).toLocaleDateString('bn-BD', {
     year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
+    month: 'long',
+    day: 'numeric'
   });
 
   const handlePrint = () => {
@@ -21,15 +20,21 @@ function InvoiceModal({ order, onClose }) {
 
   const handleDirectDownload = async () => {
     const invoiceElement = document.getElementById('printable-invoice');
-    if (!invoiceElement) return;
+    if (!invoiceElement) {
+      window.print();
+      return;
+    }
 
     try {
       setIsDownloading(true);
       const canvas = await html2canvas(invoiceElement, {
-        scale: 2.5, // Ultra-sharp 300DPI crisp export
+        scale: 2,
         useCORS: true,
+        allowTaint: true,
         backgroundColor: '#ffffff',
-        logging: false
+        logging: false,
+        scrollX: 0,
+        scrollY: 0
       });
 
       const image = canvas.toDataURL('image/png', 1.0);
@@ -39,8 +44,11 @@ function InvoiceModal({ order, onClose }) {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      setDownloadSuccess(true);
+      setTimeout(() => setDownloadSuccess(false), 4000);
     } catch (err) {
-      console.error('Invoice download error:', err);
+      console.warn('Direct canvas download error, opening native print / save as PDF:', err);
       window.print();
     } finally {
       setIsDownloading(false);
@@ -53,30 +61,36 @@ function InvoiceModal({ order, onClose }) {
         {/* Modal Top Control Bar (Hidden in Print) */}
         <div className="invoice-modal-controls no-print">
           <div className="invoice-controls-left">
-            <span className="invoice-modal-title">Official Order Invoice</span>
+            <span className="invoice-modal-title">অফিসিয়াল অর্ডার ইনভয়েস</span>
             <span className="invoice-modal-id">#{order.orderId}</span>
           </div>
 
           <div className="invoice-controls-right">
-            {/* 1-Click Direct Download Button */}
-            <button 
-              className="btn-invoice-action btn-invoice-download" 
-              onClick={handleDirectDownload}
-              disabled={isDownloading}
-              aria-label="Direct Download Invoice"
-            >
-              {isDownloading ? <Loader2 size={15} className="spin-icon" /> : <Download size={15} />}
-              <span>{isDownloading ? 'Downloading...' : 'Download Invoice'}</span>
-            </button>
-
             {/* Standard Print / Save as PDF Button */}
             <button 
               className="btn-invoice-action btn-invoice-print" 
               onClick={handlePrint}
-              aria-label="Print Invoice"
+              aria-label="Save PDF / Print"
             >
-              <Printer size={15} />
-              <span>Print / PDF</span>
+              <FileText size={15} />
+              <span>Save PDF / Print</span>
+            </button>
+
+            {/* 1-Click Image Download Button */}
+            <button 
+              className="btn-invoice-action btn-invoice-download" 
+              onClick={handleDirectDownload}
+              disabled={isDownloading}
+              aria-label="Download Image"
+            >
+              {isDownloading ? (
+                <Loader2 size={15} className="spin-icon" />
+              ) : downloadSuccess ? (
+                <CheckCircle size={15} color="#10b981" />
+              ) : (
+                <Download size={15} />
+              )}
+              <span>{isDownloading ? 'প্রসেসিং...' : downloadSuccess ? 'ডাউনলোড সম্পন্ন' : 'ডাউনলোড (PNG)'}</span>
             </button>
 
             <button 
