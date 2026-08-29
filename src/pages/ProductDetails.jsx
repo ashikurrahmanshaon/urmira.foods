@@ -1,8 +1,23 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { ShoppingBag, Star, Check, ChevronLeft, ChevronRight, PhoneCall, Zap, Award, Sparkles, ZoomIn, X, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { 
+  ShoppingBag, 
+  Star, 
+  Check, 
+  ChevronLeft, 
+  ChevronRight, 
+  PhoneCall, 
+  Zap, 
+  Award, 
+  Sparkles, 
+  ZoomIn, 
+  X, 
+  ShieldCheck, 
+  CheckCircle2
+} from 'lucide-react';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
+import SEO from '../components/SEO';
 
 function ProductDetails() {
   const { id } = useParams();
@@ -69,18 +84,69 @@ function ProductDetails() {
   };
 
   const savings = product.oldPrice ? product.oldPrice - product.price : 0;
+  const discountPercent = product.oldPrice 
+    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) 
+    : 0;
+
   const englishBadge = product.id === 1 ? '100% PURE & ARTISAN' : 'ORGANIC ENERGY BOOSTER';
   const englishSubtitle = product.id === 1 ? 'Handcrafted Pure Cow Ghee' : 'Special Khurjur & Dry Fruits Power Bomb';
   const displayTitle = product.name.split('(')[0].trim();
 
+  // Full Google Rich Result Schema for Product
+  const productSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.name,
+    "image": [
+      `https://urmira.com${product.image || '/images/ghee-1.jpg'}`,
+      "https://urmira.com/images/ghee-2.jpg"
+    ],
+    "description": product.fullDesc || product.shortDesc,
+    "sku": `URM-00${product.id}`,
+    "mpn": `URMIRA-${product.id}`,
+    "brand": {
+      "@type": "Brand",
+      "name": "URMIRA Organic Foods"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://urmira.com/product/${product.id}`,
+      "priceCurrency": "BDT",
+      "price": product.price,
+      "priceValidUntil": "2027-12-31",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "URMIRA Organic Foods"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": product.rating || 4.9,
+      "reviewCount": product.reviewsCount || 148,
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  };
+
   return (
     <div className="product-details-page-wrapper">
+      <SEO 
+        title={`${product.name} (মূল্য: ৳ ${product.price})`}
+        description={`${product.shortDesc} ১০০% খাঁটি ও নির্ভেজাল গ্যারান্টি। হোম ডেলিভারি ও ক্যাশ অন ডেলিভারি সুবিধা।`}
+        keywords={`${product.name}, খাঁটি গাওয়া ঘি দাম, pure cow ghee 500g price in bd, buy gawa ghee dhaka, gawa ghee benefits`}
+        canonicalPath={`/product/${product.id}`}
+        image={product.image || '/images/ghee-1.jpg'}
+        type="product"
+        schema={productSchema}
+      />
       <div className="container">
         {/* Back Navigation Button */}
         <div className="detail-top-nav-bar">
           <Link to="/shop" className="detail-back-capsule">
             <ChevronLeft size={16} />
-            <span>Back to Products</span>
+            <span>সব প্রোডাক্ট দেখুন</span>
           </Link>
         </div>
 
@@ -120,7 +186,7 @@ function ProductDetails() {
                 <div className="gallery-bottom-overlay">
                   <div className="gallery-proof-pill">
                     <ShieldCheck size={14} color="#10b981" />
-                    <span>100% Pure & Lab Tested</span>
+                    <span>১০০% খাঁটি ও ল্যাব টেস্টেড</span>
                   </div>
 
                   <div className="gallery-zoom-pill">
@@ -197,7 +263,7 @@ function ProductDetails() {
                     <Star key={i} size={14} fill="#d97706" color="#d97706" />
                   ))}
                 </div>
-                <span className="info-rating-label">{product.rating} ({product.reviewsCount}+ Reviews)</span>
+                <span className="info-rating-label">{product.rating} ({product.reviewsCount}+ কাস্টমার রিভিউ)</span>
                 <span className="info-weight-pill">Net: 500g</span>
               </div>
 
@@ -213,7 +279,7 @@ function ProductDetails() {
                 )}
                 {savings > 0 && (
                   <span className="info-save-tag">
-                    SAVE ৳ {savings}
+                    {discountPercent}% OFF (SAVE ৳{savings})
                   </span>
                 )}
               </div>
@@ -222,7 +288,7 @@ function ProductDetails() {
                 {product.shortDesc}
               </p>
 
-              {/* Clean English Tabs */}
+              {/* Clean Tabs */}
               <div className="info-tabs-wrapper">
                 <div className="info-tab-headers">
                   <button 
@@ -230,21 +296,21 @@ function ProductDetails() {
                     className={`info-tab-btn ${activeTab === 'benefits' ? 'active' : ''}`}
                     onClick={() => setActiveTab('benefits')}
                   >
-                    Benefits
+                    স্বাস্থ্য উপকারিতা
                   </button>
                   <button 
                     type="button"
                     className={`info-tab-btn ${activeTab === 'ingredients' ? 'active' : ''}`}
                     onClick={() => setActiveTab('ingredients')}
                   >
-                    Ingredients
+                    উপাদানসমূহ
                   </button>
                   <button 
                     type="button"
                     className={`info-tab-btn ${activeTab === 'delivery' ? 'active' : ''}`}
                     onClick={() => setActiveTab('delivery')}
                   >
-                    Delivery & COD
+                    ডেলিভারি ও ক্যাশ অন
                   </button>
                 </div>
 
@@ -263,36 +329,37 @@ function ProductDetails() {
                   {activeTab === 'ingredients' && (
                     <div className="tab-text-block">
                       {product.id === 1 ? (
-                        <p>100% pure artisan cow milk butter and cream. Naturally simmered without any chemicals, artificial fragrance, or adulteration.</p>
+                        <p>১০০% খাঁটি গরুর দুধের ননী ও মাখন। সম্পূর্ণ প্রাকৃতিকভাবে ঐতিহ্যবাহী পদ্ধতিতে জ্বাল দেওয়া, কোনো কেমিক্যাল বা কৃত্রিম ফ্লেভার ছাড়া শতভাগ বিশুদ্ধ।</p>
                       ) : (
-                        <p>Premium Maryam & Ajwa dates, pure raw organic honey, roasted cashews, almonds, pistachios, walnuts, and nutritious energy seeds.</p>
+                        <p>সেরা মানের মরিয়ম ও আজওয়া খেজুর, খাঁটি প্রাকৃতিক মধু, রোস্টেড কাজুবাদাম, কাঠবাদাম, পেস্তাবাদাম, আখরোট এবং স্বাস্থ্যকর শক্তির বীজ।</p>
                       )}
                     </div>
                   )}
 
                   {activeTab === 'delivery' && (
                     <div className="tab-text-block">
-                      <p>• <strong>Inside Dhaka:</strong> Fast home delivery within 24-48 hours (Charge: ৳ 70).</p>
-                      <p>• <strong>Outside Dhaka:</strong> Nationwide home delivery within 48-72 hours (Charge: ৳ 130).</p>
-                      <p>• <strong>Cash on Delivery (COD):</strong> Full parcel inspection available before payment.</p>
+                      <p>• <strong>ঢাকার ভেতরে:</strong> ২৪-৪৮ ঘণ্টার মধ্যে দ্রুত হোম ডেলিভারি (চার্জ: ৳ ৭০)।</p>
+                      <p>• <strong>ঢাকার বাইরে:</strong> সারাদেশে ২-৩ কার্যদিবসের মধ্যে হোম ডেলিভারি (চার্জ: ৳ ১৩০)।</p>
+                      <p>• <strong>ক্যাশ অন ডেলিভারি (COD):</strong> পার্সেল হাতে পেয়ে সম্পূর্ণ চেক করে মূল্য পরিশোধের নিশ্চয়তা।</p>
+                      <p>• <strong>ফ্রি ডেলিভারি:</strong> ৳২,০০০ টাকার যেকোনো অর্ডারে ডেলিভারি চার্জ একদম ফ্রি!</p>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Clean English Quantity Picker */}
+              {/* Quantity Picker */}
               <div className="info-quantity-row">
-                <span className="qty-label">Quantity:</span>
+                <span className="qty-label">পরিমাণ (Quantity):</span>
                 <div className="qty-counter-control">
                   <button 
-                    type="button"
+                    type="button" 
                     className="qty-step-btn"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     aria-label="Decrease quantity"
                   >-</button>
                   <span className="qty-step-value">{quantity}</span>
                   <button 
-                    type="button"
+                    type="button" 
                     className="qty-step-btn"
                     onClick={() => setQuantity(quantity + 1)}
                     aria-label="Increase quantity"
@@ -300,10 +367,10 @@ function ProductDetails() {
                 </div>
               </div>
 
-              {/* Clean English 1-Click Purchase Buttons */}
+              {/* Purchase Buttons */}
               <div className="info-action-buttons">
                 <button 
-                  type="button"
+                  type="button" 
                   className={`btn-action-bag ${added ? 'added' : ''}`}
                   onClick={handleAddToCart}
                   aria-label="Add to Bag"
@@ -311,24 +378,24 @@ function ProductDetails() {
                   {added ? (
                     <>
                       <Check size={18} color="#054231" />
-                      <span>Added to Bag</span>
+                      <span>ব্যাগে যুক্ত হয়েছে</span>
                     </>
                   ) : (
                     <>
                       <ShoppingBag size={18} />
-                      <span>Add to Bag</span>
+                      <span>ব্যাগে যোগ করুন</span>
                     </>
                   )}
                 </button>
 
                 <button 
-                  type="button"
+                  type="button" 
                   className="btn-action-buy-now"
                   onClick={handleBuyNow}
                   aria-label="Order Now"
                 >
                   <Zap size={18} />
-                  <span>Order Now</span>
+                  <span>এখনই অর্ডার করুন</span>
                 </button>
               </div>
 
@@ -337,7 +404,7 @@ function ProductDetails() {
                 <div className="phone-pulsing-badge">
                   <PhoneCall size={14} />
                 </div>
-                <span>Direct Order Hotline: <strong>01712-345678</strong></span>
+                <span>ফোনে সরাসরি অর্ডার করুন: <strong>01712-345678</strong></span>
               </a>
             </div>
           </div>
@@ -348,13 +415,13 @@ function ProductDetails() {
           <div className="proof-head-box">
             <span className="proof-pill-tag">
               <Sparkles size={12} />
-              <span>REAL QUALITY PROOF</span>
+              <span>বাস্তব ছবি ও আনবক্সিং প্রমাণ</span>
             </span>
             <h2 className="proof-heading">
-              Authentic Unboxing & Quality Proof
+              অরিজিনাল প্রোডাক্ট ফটো গ্যালারি
             </h2>
             <p className="proof-subtext">
-              100% genuine studio & packaging photography from our authentic production.
+              ১০০% আসল প্যাকেজিং ও অরিজিনাল স্টুডিও ফটোগ্রাফি। ছবিতে যা দেখছেন, ঠিক তাই পাবেন।
             </p>
           </div>
 
@@ -381,12 +448,12 @@ function ProductDetails() {
                   />
                   <div className="proof-zoom-overlay">
                     <ZoomIn size={24} color="#ffffff" />
-                    <span>View Full Photo</span>
+                    <span>বড় করে দেখুন</span>
                   </div>
                 </div>
                 <div className="proof-card-label">
                   <ShieldCheck size={14} color="#10b981" />
-                  <span>Original Quality - Photo #{index + 1}</span>
+                  <span>অরিজিনাল কোয়ালিটি - ছবি #{index + 1}</span>
                 </div>
               </div>
             ))}
@@ -398,7 +465,7 @@ function ProductDetails() {
           <div className="gallery-lightbox-overlay" onClick={() => setIsLightboxOpen(false)}>
             <div className="gallery-lightbox-content" onClick={(e) => e.stopPropagation()}>
               <button 
-                type="button"
+                type="button" 
                 className="lightbox-close-btn"
                 onClick={() => setIsLightboxOpen(false)}
                 aria-label="Close Lightbox"
@@ -415,19 +482,46 @@ function ProductDetails() {
               <div className="lightbox-nav-footer">
                 <button type="button" className="lightbox-nav-btn" onClick={handlePrevImage}>
                   <ChevronLeft size={20} />
-                  <span>Prev</span>
+                  <span>আগের ছবি</span>
                 </button>
                 <span className="lightbox-counter-label">
                   {activeImgIndex + 1} / {gallery.length}
                 </span>
                 <button type="button" className="lightbox-nav-btn" onClick={handleNextImage}>
-                  <span>Next</span>
+                  <span>পরের ছবি</span>
                   <ChevronRight size={20} />
                 </button>
               </div>
             </div>
           </div>
         )}
+      </div>
+
+      {/* Floating Sticky Mobile Quick Bar */}
+      <div className="product-mobile-bottom-bar no-print">
+        <div className="mobile-bar-price-wrap">
+          <span className="mobile-bar-lbl">মূল্য:</span>
+          <span className="mobile-bar-price">৳ {product.price.toLocaleString('en-US')}</span>
+        </div>
+        <div className="mobile-bar-btns">
+          <button 
+            type="button"
+            className="mobile-bar-btn-bag"
+            onClick={handleAddToCart}
+            aria-label="Add to Bag"
+          >
+            <ShoppingBag size={16} />
+          </button>
+          <button 
+            type="button"
+            className="mobile-bar-btn-buy"
+            onClick={handleBuyNow}
+            aria-label="Order Now"
+          >
+            <Zap size={16} />
+            <span>অর্ডার করুন</span>
+          </button>
+        </div>
       </div>
     </div>
   );

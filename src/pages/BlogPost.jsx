@@ -3,6 +3,7 @@ import { ArrowLeft, Calendar, Clock, User, Share2, Tag, ArrowRight, CheckCircle2
 import { blogPosts } from '../data/blogPosts';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
+import SEO from '../components/SEO';
 
 function BlogPost() {
   const { id } = useParams();
@@ -19,8 +20,45 @@ function BlogPost() {
     }
   };
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "image": [
+      `https://urmira.com${post.image}`
+    ],
+    "datePublished": "2026-08-28T08:00:00+06:00",
+    "dateModified": "2026-08-29T10:00:00+06:00",
+    "author": {
+      "@type": "Person",
+      "name": post.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "URMIRA Organic Foods",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://urmira.com/favicon.svg"
+      }
+    },
+    "description": post.excerpt,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://urmira.com/blog/${post.id}`
+    }
+  };
+
   return (
     <div className="blog-post-page-wrap">
+      <SEO 
+        title={post.title}
+        description={post.excerpt}
+        keywords={post.tags.join(', ') + ', গাওয়া ঘি, organic foods'}
+        canonicalPath={`/blog/${post.id}`}
+        image={post.image}
+        type="article"
+        schema={articleSchema}
+      />
       <div className="container">
         {/* Navigation Breadcrumb Bar */}
         <div className="post-nav-bar">

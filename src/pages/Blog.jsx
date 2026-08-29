@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Clock, Calendar, ArrowRight, BookOpen, ShieldCheck, Tag } from 'lucide-react';
 import { blogPosts } from '../data/blogPosts';
+import SEO from '../components/SEO';
 
 function Blog() {
   const [activeCategory, setActiveCategory] = useState('ALL');
@@ -12,8 +13,33 @@ function Blog() {
     ? blogPosts
     : blogPosts.filter((post) => post.category === activeCategory);
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "URMIRA Health & Nutrition Journal",
+    "description": "প্রাকৃতিক খাবার, খাঁটি গাওয়া ঘিয়ের বিজ্ঞানসম্মত উপকারিতা ও স্বাস্থ্য টিপস।",
+    "url": "https://urmira.com/blog",
+    "blogPost": blogPosts.map((post) => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "url": `https://urmira.com/blog/${post.id}`,
+      "datePublished": "2026-08-28",
+      "author": {
+        "@type": "Person",
+        "name": post.author
+      }
+    }))
+  };
+
   return (
     <div className="blog-page-wrap">
+      <SEO 
+        title="স্বাস্থ্য ও পুষ্টি ব্লগ | খাঁটি গাওয়া ঘি ও স্বাস্থ্য টিপস"
+        description="গাওয়া ঘি খাওয়ার উপকারিতা, আসল ঘি চেনার সহজ উপায় এবং পুষ্টিকর সুপারফুড নিয়ে তথ্যবহুল স্বাস্থ্য জার্নাল ও গবেষণা টিপস।"
+        keywords="গাওয়া ঘি এর উপকারিতা, খাঁটি ঘি চেনার উপায়, pure ghee health benefits, organic food blog bangladesh, khurjur power bomb recipe"
+        canonicalPath="/blog"
+        schema={blogSchema}
+      />
       {/* Blog Hero Header */}
       <section className="blog-hero-section">
         <div className="container">

@@ -1,7 +1,23 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShieldCheck, Truck, ArrowRight, Award, Leaf, Star, ChevronDown, CheckCircle2, HeartHandshake, PhoneCall, Sparkles, Package, Zap } from 'lucide-react';
+import { 
+  ShieldCheck, 
+  Truck, 
+  ArrowRight, 
+  Award, 
+  Leaf, 
+  Star, 
+  ChevronDown, 
+  CheckCircle2, 
+  HeartHandshake, 
+  PhoneCall, 
+  Sparkles, 
+  Zap,
+  Droplet,
+  Check
+} from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import SEO from '../components/SEO';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 
@@ -9,14 +25,18 @@ function Home() {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const [openFaq, setOpenFaq] = useState(null);
+  const [comboAdded, setComboAdded] = useState(false);
 
   const handleOrderCombo = () => {
     const ghee = products.find((p) => p.id === 1);
     const khejur = products.find((p) => p.id === 2);
     if (ghee && khejur) {
+      setComboAdded(true);
       addToCart(ghee, 1, false);
       addToCart(khejur, 1, false);
-      navigate('/cart');
+      setTimeout(() => {
+        navigate('/cart');
+      }, 350);
     }
   };
 
@@ -41,7 +61,7 @@ function Home() {
     },
     {
       name: 'সাইফুল করিম',
-      location: 'চট্টগ্রাম',
+      location: 'চট্টগ্রাম সদর',
       rating: 5,
       product: 'গাওয়া ঘি ও পাওয়ার বোম্ব কম্বো',
       comment: 'ডেলিভারি পেয়েছি মাত্র ২ দিনে। পার্সেল খুলে চেক করে টাকা দিতে পেরেছি। খাঁটি জিনিসের জন্য উর্মিরাকে বিশ্বাস করা যায়।'
@@ -51,15 +71,15 @@ function Home() {
   const faqs = [
     {
       q: 'উর্মিরা গাওয়া ঘি কেন অন্যান্য ব্র্যান্ড থেকে সেরা?',
-      a: 'আমরা খামারিদের খাঁটি গরুর দুধের ননী ও মাখন সংগ্রহ করে সম্পূর্ণ ঐতিহ্যবাহী ও প্রাকৃতিক স্বাস্থ্যসম্মত পদ্ধতিতে ঘি তৈরি করি। কোনো প্রকার ডালডা, সুগন্ধি বা রাসায়নিক প্রিজারভেটিভ ব্যবহার করা হয় না।'
+      a: 'আমরা খামারিদের খাঁটি গরুর দুধের ননী ও মাখন সংগ্রহ করে সম্পূর্ণ ঐতিহ্যবাহী ও প্রাকৃতিক স্বাস্থ্যসম্মত পদ্ধতিতে ঘি তৈরি করি। কোনো প্রকার ডালডা, কৃত্রিম সুগন্ধি বা রাসায়নিক প্রিজারভেটিভ ব্যবহার করা হয় না।'
     },
     {
       q: 'খেজুরের পাওয়ার বোম্বে কী কী উপাদান রয়েছে?',
-      a: 'এতে রয়েছে প্রিমিয়াম কোয়ালিটির আজওয়া ও মরিয়ম খেজুর, খাঁটি প্রাকৃতিক মধু, কাজুবাদাম, কাঠবাদাম, পেস্তা বাদাম, আখরোট এবং শক্তিদায়ী বিভিন্ন প্রাকৃতিক বীজ।'
+      a: 'এতে রয়েছে প্রিমিয়াম কোয়ালিটির আজওয়া ও মরিয়ম খেজুর, খাঁটি প্রাকৃতিক মধু, কাজুবাদাম, কাঠবাদাম, পেস্তা বাদাম, আখরোট এবং শক্তিদায়ী বিভিন্ন প্রাকৃতিক পুষ্টিকর বীজ।'
     },
     {
       q: 'ডেলিভারি চার্জ কত এবং ডেলিভারি পেতে কত সময় লাগে?',
-      a: 'ঢাকার ভেতরে হোম ডেলিভারি চার্জ মাত্র ৳৭০ (১-২ দিনের মধ্যে) এবং ঢাকার বাইরে সারাদেশে ৳১৩০ (২-৩ দিনের মধ্যে)। পার্সেল হাতে পেয়ে চেক করে নেওয়ার সুবিধা রয়েছে।'
+      a: 'ঢাকার ভেতরে হোম ডেলিভারি চার্জ মাত্র ৳৭০ (১-২ দিনের মধ্যে) এবং ঢাকার বাইরে সারাদেশে ৳১৩০ (২-৩ দিনের মধ্যে)। ৳২০০০ টাকার অর্ডারে ডেলিভারি চার্জ সম্পূর্ণ ফ্রি! এছাড়া পার্সেল হাতে পেয়ে চেক করে নেওয়ার শতভাগ সুবিধা রয়েছে।'
     },
     {
       q: 'আমি কীভাবে সরাসরি বা ফোনে অর্ডার করতে পারি?',
@@ -67,17 +87,72 @@ function Home() {
     }
   ];
 
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://urmira.com/#website",
+        "url": "https://urmira.com/",
+        "name": "URMIRA - 100% Pure Organic Foods",
+        "description": "১০০% খাঁটি গাওয়া ঘি এবং স্পেশাল খেজুরের পাওয়ার বোম্ব",
+        "publisher": {
+          "@type": "Organization",
+          "name": "URMIRA Organic Foods"
+        }
+      },
+      {
+        "@type": "Store",
+        "@id": "https://urmira.com/#store",
+        "name": "URMIRA Foods Store",
+        "image": "https://urmira.com/images/ghee-1.jpg",
+        "telephone": "+8801712345678",
+        "priceRange": "৳ 850 - ৳ 1950",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dhaka",
+          "addressCountry": "BD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://urmira.com/#faq",
+        "mainEntity": faqs.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.a
+          }
+        }))
+      }
+    ]
+  };
+
   return (
     <div>
+      <SEO 
+        title="খাঁটি গাওয়া ঘি ও খেজুরের পাওয়ার বোম্ব | URMIRA Organic Foods"
+        description="উর্মিরা ফুডস - ১০০% প্রাকৃতিক ও খাঁটি গাওয়া ঘি এবং প্রিমিয়াম খেজুরের পাওয়ার বোম্ব। কোনো প্রকার কেমিক্যাল বা কৃত্রিম ফ্লেভার ছাড়া শতভাগ প্রাকৃতিক। সারাদেশে ক্যাশ অন ডেলিভারি।"
+        keywords="গাওয়া ঘি, খাঁটি গাওয়া ঘি, pure cow ghee bd, gawa ghee price in bangladesh, buy organic cow ghee, pure ghee online, খাঁটি ঘি চেনার উপায়, খেজুরের পাওয়ার বোম্ব, khurjur power bomb, dry fruits honey, organic food bangladesh, urmira foods"
+        canonicalPath="/"
+        image="/images/ghee-1.jpg"
+        schema={homeSchema}
+      />
       {/* 1. Pure & Authentic Luxury Hero Section */}
       <section className="hero-ios-wrap">
         <div className="container">
           <div className="hero-ios-grid">
             {/* Left Content Column */}
             <div className="hero-content-block">
+              <div className="hero-badge-capsule">
+                <Leaf size={14} className="hero-leaf-spin" />
+                <span>১০০% বিশুদ্ধ ও হস্তনির্মিত প্রাকৃতিক খাবার</span>
+              </div>
+
               <h1 className="hero-ios-title">
                 খাঁটি ও নির্ভেজাল খাবার, <br />
-                <span>আপনার সুস্থতার অঙ্গীকার।</span>
+                <span className="hero-highlight-phrase">আপনার সুস্থতার অঙ্গীকার।</span>
               </h1>
 
               <p className="hero-ios-lead">
@@ -93,30 +168,20 @@ function Home() {
                 </Link>
                 <Link to="/product/1" className="ios27-secondary-cta">
                   <div className="ios27-cta-icon-disc">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <rect x="5" y="7" width="14" height="13" rx="4" fill="#fef3c7" stroke="#d97706" strokeWidth="1.8" />
-                      <rect x="7" y="3" width="10" height="4" rx="2" fill="#fde68a" stroke="#d97706" strokeWidth="1.8" />
-                      <path d="M6 13c2-1 4 1 6 0s4-1 6 0v3c0 2.2-1.8 4-4 4H10c-2.2 0-4-1.8-4-4v-3z" fill="#f59e0b" />
-                      <circle cx="12" cy="10" r="1.5" fill="#d97706" />
-                    </svg>
+                    <Droplet size={16} color="#d97706" />
                   </div>
                   <span className="ios27-cta-text">খাঁটি গাওয়া ঘি</span>
                 </Link>
               </div>
 
-              {/* Authentic Bengali Trust Promises (Button Size Matching & Pure Icons) */}
+              {/* Authentic Bengali Trust Promises */}
               <div className="hero-ios-trust-capsules">
                 <div className="trust-pill-authentic">
                   <Leaf size={15} color="#10b981" />
                   <span>১০০% খাঁটি ও নির্ভেজাল</span>
                 </div>
                 <div className="trust-pill-authentic">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 20h18" />
-                    <path d="M5 20V9l7-5 7 5v11" />
-                    <path d="M9 20v-6h6v6" />
-                    <path d="M12 4v4" />
-                  </svg>
+                  <Award size={15} color="#10b981" />
                   <span>খামারিদের মাখনে প্রস্তুত</span>
                 </div>
                 <div className="trust-pill-authentic">
@@ -129,13 +194,14 @@ function Home() {
             {/* Right: High-Impact Duo Mega Combo Card */}
             <div>
               <div className="hero-combo-luxury-card">
-                {/* Big Studio Duo Showcase Frame (Big Edge-to-Edge Images) */}
+                {/* Big Studio Duo Showcase Frame */}
                 <div className="hero-combo-duo-stage">
                   <div className="hero-combo-photo-box box-ghee">
                     <img 
                       src="/images/ghee-1.jpg" 
                       alt="Pure Cow Ghee" 
                       className="combo-stage-img"
+                      loading="eager"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = '/images/ghee-1.jpg';
@@ -155,6 +221,7 @@ function Home() {
                       src="/images/khejur-1.jpg" 
                       alt="Khurjur Power Bomb" 
                       className="combo-stage-img"
+                      loading="eager"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = '/images/khejur-1.jpg';
@@ -188,9 +255,11 @@ function Home() {
                       onClick={handleOrderCombo}
                       aria-label="Order Duo Combo"
                     >
-                      <span className="ios27-combo-btn-text">Order Combo</span>
+                      <span className="ios27-combo-btn-text">
+                        {comboAdded ? 'Adding...' : 'Order Combo'}
+                      </span>
                       <div className="ios27-combo-arrow-disk">
-                        <ArrowRight size={15} strokeWidth={2.5} />
+                        {comboAdded ? <Check size={15} strokeWidth={2.5} /> : <ArrowRight size={15} strokeWidth={2.5} />}
                       </div>
                     </button>
                   </div>
@@ -201,7 +270,7 @@ function Home() {
         </div>
       </section>
 
-      {/* 2. Iconic iOS 27 Trust Metrics Section */}
+      {/* 2. Iconic iOS Trust Metrics Section */}
       <section className="stats-strip-wrap">
         <div className="container">
           <div className="stats-grid-four">
@@ -212,7 +281,7 @@ function Home() {
               </div>
               <div className="stat-text-stack">
                 <div className="stat-number">৫,০০০+</div>
-                <div className="stat-label">সন্তুষ্ট গ্রাহক</div>
+                <div className="stat-label">সন্তুষ্ট পরিবার</div>
                 <span className="stat-micro-pill">Happy Families</span>
               </div>
             </div>
@@ -278,7 +347,75 @@ function Home() {
         </div>
       </section>
 
-      {/* 4. Why Choose Urmira (Value Pillars) */}
+      {/* 4. Pure Ingredients Deep Dive Showcase */}
+      <section className="section-ios-wrap ingredients-deep-section">
+        <div className="container">
+          <div className="section-header-ios">
+            <span className="ios-badge">
+              <Sparkles size={12} />
+              <span>খাঁটি উপাদানের প্রতিশ্রুতি</span>
+            </span>
+            <h2 className="section-title-ios">আমাদের খাবারে কী রয়েছে?</h2>
+            <p className="section-sub-ios">
+              কোনো ক্ষতিকর প্রিজারভেটিভ বা কেমিক্যাল ছাড়া শতভাগ প্রাকৃতিক উপকরণের সমাহার।
+            </p>
+          </div>
+
+          <div className="ingredients-duo-cards">
+            {/* Ghee Card */}
+            <div className="ingredient-card-item">
+              <div className="ingredient-card-header">
+                <div className="ingredient-badge-disc ghee-disc">
+                  <Droplet size={18} />
+                </div>
+                <div>
+                  <h3 className="ingredient-title">প্রিমিয়াম খাঁটি গাওয়া ঘি</h3>
+                  <span className="ingredient-subtitle">Artisan Pure Cow Ghee</span>
+                </div>
+              </div>
+              <p className="ingredient-desc">
+                গ্রামের বিশ্বস্ত খামারিদের থেকে সংগৃহীত খাঁটি দুধের ননী মন্থন করে ধীর আঁচে প্রস্তুতকৃত দানাদার সুবাসিত ঘি।
+              </p>
+              <ul className="ingredient-checklist">
+                <li><CheckCircle2 size={15} color="#10b981" /> ১০০% গরুর দুধের মাখন থেকে তৈরি</li>
+                <li><CheckCircle2 size={15} color="#10b981" /> প্রাকৃতিক সুবাস ও খাঁটি দানাদার টেক্সচার</li>
+                <li><CheckCircle2 size={15} color="#10b981" /> কোনো প্রকার ডালডা বা কৃত্রিম সেন্ট নেই</li>
+              </ul>
+              <Link to="/product/1" className="btn btn-outline-green btn-full-card">
+                <span>ঘি সম্পর্কে বিস্তারিত দেখুন</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            {/* Power Bomb Card */}
+            <div className="ingredient-card-item">
+              <div className="ingredient-card-header">
+                <div className="ingredient-badge-disc khejur-disc">
+                  <Zap size={18} />
+                </div>
+                <div>
+                  <h3 className="ingredient-title">খেজুরের পাওয়ার বোম্ব</h3>
+                  <span className="ingredient-subtitle">Khurjur & Nuts Energy Bomb</span>
+                </div>
+              </div>
+              <p className="ingredient-desc">
+                মরিয়ম ও আজওয়া খেজুর, খাঁটি মধু এবং কাজু, কাঠবাদাম, পেস্তা, আখরোট ও শক্তিদায়ী বীজের রাজকীয় ফর্মুলা।
+              </p>
+              <ul className="ingredient-checklist">
+                <li><CheckCircle2 size={15} color="#10b981" /> ৫ প্রকার প্রিমিয়াম বাদাম ও খাঁটি প্রাকৃতিক মধু</li>
+                <li><CheckCircle2 size={15} color="#10b981" /> কোনো চিনি বা আর্টিফিশিয়াল সুইটনার নেই</li>
+                <li><CheckCircle2 size={15} color="#10b981" /> সারাদিনের কর্মশক্তি ও শারীরিক সুস্থতার সেরা উৎস</li>
+              </ul>
+              <Link to="/product/2" className="btn btn-outline-green btn-full-card">
+                <span>পাওয়ার বোম্ব বিস্তারিত দেখুন</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Why Choose Urmira (Value Pillars) */}
       <section className="pillars-ios-wrap">
         <div className="container">
           <div className="section-header-ios">
@@ -333,8 +470,8 @@ function Home() {
         </div>
       </section>
 
-      {/* 5. Customer Testimonials Section */}
-      <section className="section-ios-wrap" style={{ background: 'rgba(255,255,255,0.6)' }}>
+      {/* 6. Customer Testimonials Section */}
+      <section className="section-ios-wrap testimonials-section-wrap">
         <div className="container">
           <div className="section-header-ios">
             <span className="ios-badge">
@@ -349,9 +486,11 @@ function Home() {
             {reviews.map((rev, index) => (
               <div key={index} className="review-card-item">
                 <div className="review-stars-row">
-                  {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} size={14} fill="#d97706" color="#d97706" />
-                  ))}
+                  <div className="stars-cluster">
+                    {[...Array(rev.rating)].map((_, i) => (
+                      <Star key={i} size={14} fill="#d97706" color="#d97706" />
+                    ))}
+                  </div>
                   <span className="review-verified-tag">
                     <CheckCircle2 size={12} color="#10b981" /> ভেরিফাইড ক্রেতা
                   </span>
@@ -374,9 +513,9 @@ function Home() {
         </div>
       </section>
 
-      {/* 6. FAQ Accordion Section */}
-      <section className="section-ios-wrap">
-        <div className="container" style={{ maxWidth: '800px' }}>
+      {/* 7. FAQ Accordion Section */}
+      <section className="section-ios-wrap faq-section-wrap">
+        <div className="container" style={{ maxWidth: '820px' }}>
           <div className="section-header-ios">
             <span className="ios-badge">
               <HeartHandshake size={12} />
@@ -411,12 +550,12 @@ function Home() {
           {/* Quick Helpline Banner */}
           <div className="faq-helpline-card">
             <div>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#054231', marginBottom: '0.2rem' }}>
+              <h4 className="helpline-card-h4">
                 অন্য কোনো প্রশ্ন বা সরাসরি অর্ডার করতে চান?
               </h4>
-              <p style={{ color: '#6e6e73', fontSize: '0.88rem' }}>আমাদের কাস্টমার কেয়ার টিম সবসময় আপনার সেবায় প্রস্তুত।</p>
+              <p className="helpline-card-p">আমাদের কাস্টমার কেয়ার টিম সবসময় আপনার সেবায় প্রস্তুত।</p>
             </div>
-            <a href="tel:01712345678" className="btn btn-primary" style={{ padding: '0.65rem 1.4rem' }}>
+            <a href="tel:01712345678" className="btn btn-primary helpline-cta-btn">
               <PhoneCall size={16} />
               <span>কল করুন: 01712-345678</span>
             </a>

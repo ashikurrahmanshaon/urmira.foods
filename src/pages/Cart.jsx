@@ -1,9 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2, ShoppingBag, Check, ArrowLeft, ShieldCheck, Truck, CheckCircle2, Package, ArrowRight, Lock, Printer, FileText, Zap } from 'lucide-react';
+import { 
+  Trash2, 
+  ShoppingBag, 
+  Check, 
+  ArrowLeft, 
+  ShieldCheck, 
+  Truck, 
+  ArrowRight, 
+  Lock, 
+  Printer, 
+  FileText, 
+  Zap,
+  Sparkles,
+  Copy
+} from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { saveOrder } from '../utils/orderStorage';
 import InvoiceModal from '../components/InvoiceModal';
+import SEO from '../components/SEO';
 
 function Cart() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
@@ -15,24 +30,41 @@ function Cart() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [placedOrder, setPlacedOrder] = useState(null);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copiedId, setCopiedId] = useState(false);
 
-  const shippingCost = deliveryZone === 'inside' ? 70 : 130;
+  // Free shipping on cartTotal >= 2000
+  const isFreeShipping = cartTotal >= 2000;
+  const baseShippingCost = deliveryZone === 'inside' ? 70 : 130;
+  const shippingCost = isFreeShipping ? 0 : baseShippingCost;
   const grandTotal = cartTotal + shippingCost;
 
-  // Scroll to top when order is placed so customer never sees the footer
+  // Scroll to top when order is placed
   useEffect(() => {
     if (orderPlaced) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
   }, [orderPlaced]);
 
+  const handleCopyOrderId = (id) => {
+    navigator.clipboard?.writeText(id);
+    setCopiedId(true);
+    setTimeout(() => setCopiedId(false), 3000);
+  };
+
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (!customerName.trim() || !customerPhone.trim() || !customerAddress.trim()) {
-      alert('দয়া করে আপনার নাম, মোবাইল নম্বর এবং সম্পূর্ণ ঠিকানা পূরণ করুন।');
+      alert('দয়া করে আপনার নাম, মোবাইল নম্বর এবং সম্পূর্ণ ডেলিভারি ঠিকানা পূরণ করুন।');
+      return;
+    }
+
+    if (cartItems.length === 0) {
+      alert('আপনার শপিং ব্যাগে কোনো পণ্য নেই।');
       return;
     }
     
+    setIsSubmitting(true);
     const randomId = 'URM-' + Math.floor(100000 + Math.random() * 900000);
     
     const orderData = {
@@ -51,85 +83,123 @@ function Cart() {
       paymentMethod: 'Cash on Delivery'
     };
 
-    // Save to orders database & trigger Google Sheets automation webhook
-    await saveOrder(orderData);
-    
-    setPlacedOrder(orderData);
-    setOrderPlaced(true);
-    clearCart();
-    
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    try {
+      // Save to orders database & trigger cloud automation
+      await saveOrder(orderData);
+      setPlacedOrder(orderData);
+      setOrderPlaced(true);
+      clearCart();
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    } catch (err) {
+      console.error('Order save error:', err);
+      // Fallback local display
+      setPlacedOrder(orderData);
+      setOrderPlaced(true);
+      clearCart();
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (orderPlaced && placedOrder) {
     return (
-      <div className="container" style={{ padding: '3rem 1rem 5rem', maxWidth: '580px', minHeight: '75vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <div className="ios-checkout-card" style={{ padding: '2.25rem 1.5rem', width: '100%', boxShadow: '0 15px 45px rgba(5,66,49,0.1)' }}>
-          <div style={{ width: '68px', height: '68px', borderRadius: '50%', background: '#ecfdf5', color: '#054231', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem', boxShadow: '0 8px 24px rgba(16,185,129,0.2)' }}>
-            <Check size={36} />
+      <div className="container" style={{ padding: '2.5rem 1rem 5rem', maxWidth: '620px', minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="ios-checkout-card order-success-card" style={{ padding: '2.5rem 1.75rem', width: '100%', boxShadow: '0 20px 60px rgba(5,66,49,0.12)', textAlign: 'center' }}>
+          {/* Animated Green Badge */}
+          <div className="order-success-icon-hub">
+            <Check size={38} strokeWidth={2.8} />
           </div>
-          <h2 style={{ fontSize: '1.75rem', color: '#054231', marginBottom: '0.25rem', fontWeight: '900', letterSpacing: '-0.02em' }}>
-            অর্ডার সফল হয়েছে! 🎉
+
+          <span className="order-success-pill">
+            <Sparkles size={12} color="#10b981" />
+            <span>অর্ডার সফলভাবে গৃহীত হয়েছে</span>
+          </span>
+
+          <h2 className="order-success-title">
+            ধন্যবাদ, {placedOrder.customerName}!
           </h2>
-          <p style={{ color: '#059669', fontWeight: '700', fontSize: '0.92rem', marginBottom: '0.35rem' }}>
-            আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে।
-          </p>
-          <p style={{ color: '#6e6e73', fontSize: '0.86rem', marginBottom: '1.35rem' }}>
-            অর্ডার ট্র্যাকিং আইডি: <strong style={{ color: '#054231' }}>#{placedOrder.orderId}</strong>
+          
+          <p className="order-success-sub">
+            আপনার ক্যাশ অন ডেলিভারি অর্ডারটি গ্রহণ করা হয়েছে। আমাদের প্রতিনিধি দ্রুত আপনার সাথে যোগাযোগ করবেন।
           </p>
 
-          <div style={{ background: '#f5f5f7', padding: '1.25rem', borderRadius: '20px', textAlign: 'left', marginBottom: '1.35rem', border: '1px solid rgba(0,0,0,0.04)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
-              <span style={{ color: '#6e6e73' }}>Customer Name:</span>
-              <strong>{placedOrder.customerName}</strong>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
-              <span style={{ color: '#6e6e73' }}>Phone Number:</span>
-              <strong>{placedOrder.customerPhone}</strong>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
-              <span style={{ color: '#6e6e73' }}>Delivery Address:</span>
-              <span style={{ maxWidth: '60%', textAlign: 'right' }}>{placedOrder.customerAddress}</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
-              <span style={{ color: '#6e6e73' }}>Payment Method:</span>
-              <strong style={{ color: '#054231' }}>Cash on Delivery</strong>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.75rem', borderTop: '1px solid rgba(0,0,0,0.08)', fontSize: '1.15rem', color: '#054231', fontWeight: '900' }}>
-              <span>Total Payable:</span>
-              <span style={{ fontFamily: 'Plus Jakarta Sans' }}>৳ {placedOrder.grandTotal.toLocaleString('en-US')}</span>
-            </div>
-          </div>
-
-          <div style={{ background: '#ecfdf5', padding: '0.85rem 1rem', borderRadius: '14px', marginBottom: '1.35rem', display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#054231', fontSize: '0.86rem', textAlign: 'left', border: '1px solid #a7f3d0' }}>
-            <CheckCircle2 size={18} color="#10b981" style={{ flexShrink: 0 }} />
-            <span>আমাদের প্রতিনিধি শীঘ্রই কল করে আপনার পার্সেল ডেলিভারি নিশ্চিত করবেন।</span>
-          </div>
-
-          {/* Instant Invoice & Print Actions */}
-          <div className="order-confirmed-actions-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '0.85rem' }}>
+          {/* Tracking ID Bar */}
+          <div className="order-id-badge-bar">
+            <span>অর্ডার ট্র্যাকিং আইডি: <strong>#{placedOrder.orderId}</strong></span>
             <button 
+              type="button" 
+              className="btn-copy-id"
+              onClick={() => handleCopyOrderId(placedOrder.orderId)}
+              title="Copy Order ID"
+            >
+              {copiedId ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
+              <span>{copiedId ? 'কপি হয়েছে' : 'কপি করুন'}</span>
+            </button>
+          </div>
+
+          {/* Receipt Breakdown Card */}
+          <div className="order-receipt-summary-box">
+            <div className="receipt-row">
+              <span className="receipt-lbl">গ্রাহকের নাম:</span>
+              <strong className="receipt-val">{placedOrder.customerName}</strong>
+            </div>
+            <div className="receipt-row">
+              <span className="receipt-lbl">মোবাইল নম্বর:</span>
+              <strong className="receipt-val">{placedOrder.customerPhone}</strong>
+            </div>
+            <div className="receipt-row">
+              <span className="receipt-lbl">ডেলিভারি ঠিকানা:</span>
+              <span className="receipt-val address-val">{placedOrder.customerAddress}</span>
+            </div>
+            <div className="receipt-row">
+              <span className="receipt-lbl">পেমেন্ট মেথড:</span>
+              <strong className="receipt-val" style={{ color: '#054231' }}>ক্যাশ অন ডেলিভারি (COD)</strong>
+            </div>
+            <div className="receipt-row">
+              <span className="receipt-lbl">ডেলিভারি চার্জ:</span>
+              <span className="receipt-val">
+                {placedOrder.deliveryFee === 0 ? <strong style={{ color: '#10b981' }}>ফ্রি ডেলিভারি</strong> : `৳ ${placedOrder.deliveryFee}`}
+              </span>
+            </div>
+            
+            <div className="receipt-divider"></div>
+
+            <div className="receipt-total-row">
+              <span>সর্বমোট প্রদেয় টাকা:</span>
+              <span className="receipt-grand-amount">৳ {placedOrder.grandTotal.toLocaleString('en-US')}</span>
+            </div>
+          </div>
+
+          {/* Delivery Assurance Pill */}
+          <div className="order-delivery-guarantee-strip">
+            <Truck size={17} color="#054231" style={{ flexShrink: 0 }} />
+            <span>ডেলিভারিম্যান আসার পর পার্সেল খুলে চেক করে টাকা পরিশোধ করবেন।</span>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="order-confirmed-actions-grid">
+            <button 
+              type="button"
               className="btn btn-outline-green" 
               onClick={() => setShowInvoiceModal(true)}
-              style={{ width: '100%', padding: '0.75rem 0.5rem', fontSize: '0.86rem' }}
             >
-              <FileText size={15} />
-              <span>View Invoice</span>
+              <FileText size={16} />
+              <span>ইনভয়েস দেখুন</span>
             </button>
 
             <button 
-              className="btn btn-secondary" 
+              type="button"
+              className="btn btn-primary" 
               onClick={() => setShowInvoiceModal(true)}
-              style={{ width: '100%', padding: '0.75rem 0.5rem', fontSize: '0.86rem', background: '#054231', color: '#ffffff' }}
             >
-              <Printer size={15} />
-              <span>Print / PDF</span>
+              <Printer size={16} />
+              <span>প্রিন্ট / ডাউনলোড</span>
             </button>
           </div>
 
-          <Link to="/" className="btn btn-primary" style={{ width: '100%', padding: '0.85rem' }}>
-            <span>Back to Home</span>
-            <ArrowRight size={16} />
+          <Link to="/" className="btn btn-secondary order-back-home-btn">
+            <span>হোমে ফিরে যান</span>
+            <ArrowRight size={15} />
           </Link>
         </div>
 
@@ -146,18 +216,18 @@ function Cart() {
 
   if (cartItems.length === 0) {
     return (
-      <div className="container" style={{ padding: '4rem 1rem', textAlign: 'center' }}>
-        <div style={{ maxWidth: '400px', margin: '0 auto', background: '#ffffff', padding: '2.5rem 1.5rem', borderRadius: '24px', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 8px 30px rgba(0,0,0,0.04)' }}>
-          <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: '#f5f5f7', color: '#86868b', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
-            <ShoppingBag size={26} />
+      <div className="container" style={{ padding: '4rem 1rem 6rem', textAlign: 'center' }}>
+        <div style={{ maxWidth: '440px', margin: '0 auto', background: '#ffffff', padding: '3rem 2rem', borderRadius: '28px', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 10px 40px rgba(0,0,0,0.04)' }}>
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#ecfdf5', color: '#054231', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
+            <ShoppingBag size={28} />
           </div>
-          <h2 style={{ fontSize: '1.4rem', marginBottom: '0.35rem', fontWeight: '800', color: '#054231' }}>Your Bag is Empty</h2>
-          <p style={{ color: '#6e6e73', fontSize: '0.88rem', marginBottom: '1.25rem' }}>
-            Explore our pure organic foods and add items to your bag.
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '0.4rem', fontWeight: '800', color: '#054231' }}>আপনার ব্যাগটি বর্তমানে খালি</h2>
+          <p style={{ color: '#6e6e73', fontSize: '0.92rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+            আমাদের ১০০% খাঁটি গাওয়া ঘি ও স্পেশাল খেজুরের পাওয়ার বোম্ব ঘুরে দেখুন এবং ব্যাগে যুক্ত করুন।
           </p>
-          <Link to="/shop" className="btn btn-primary">
+          <Link to="/shop" className="btn btn-primary" style={{ width: '100%', padding: '0.85rem' }}>
             <ArrowLeft size={16} />
-            <span>Explore Shop</span>
+            <span>প্রোডাক্ট কালেকশন দেখুন</span>
           </Link>
         </div>
       </div>
@@ -175,19 +245,38 @@ function Cart() {
 
   return (
     <div className="container cart-page-container">
+      <SEO 
+        title="শপিং ব্যাগ ও ক্যাশ অন ডেলিভারি চেকআউট"
+        description="উর্মিরা ফুডস নিরাপদ ক্যাশ অন ডেলিভারি চেকআউট। ১-মিনিটে অর্ডার করুন এবং পার্সেল হাতে পেয়ে মূল্য পরিশোধ করুন।"
+        keywords="urmira cart, buy pure cow ghee online, cash on delivery checkout"
+        canonicalPath="/cart"
+      />
       <div className="cart-luxury-grid">
         {/* Left: Bag Items */}
         <div className="cart-left-col">
           <div className="cart-clean-header-row">
             <div className="cart-title-clean-group">
-              <h1 className="cart-clean-heading">Shopping Bag</h1>
-              <span className="cart-clean-count-pill">{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}</span>
+              <h1 className="cart-clean-heading">শপিং ব্যাগ</h1>
+              <span className="cart-clean-count-pill">{cartItems.length} {cartItems.length === 1 ? 'আইটেম' : 'আইটেম'}</span>
             </div>
 
             <Link to="/shop" className="cart-continue-shopping-link">
-              <span>+ Add More Items</span>
+              <span>+ আরও পণ্য যোগ করুন</span>
             </Link>
           </div>
+
+          {/* Free Shipping Alert Banner */}
+          {isFreeShipping ? (
+            <div className="cart-free-shipping-unlocked-banner">
+              <Sparkles size={16} color="#10b981" />
+              <span>🎉 অভিনন্দন! ৳২,০০০+ টাকার অর্ডারে <strong>ফ্রি ডেলিভারি</strong> কার্যকর হয়েছে!</span>
+            </div>
+          ) : (
+            <div className="cart-free-shipping-goal-banner">
+              <Truck size={15} color="#054231" />
+              <span>আর মাত্র <strong>৳ {(2000 - cartTotal).toLocaleString('en-US')}</strong> টাকার পণ্য যোগ করলেই ডেলিভারি চার্জ একদম ফ্রি!</span>
+            </div>
+          )}
 
           {/* Mobile Fast Jump to Checkout Strip */}
           <button 
@@ -195,9 +284,9 @@ function Cart() {
             className="mobile-quick-jump-banner"
             onClick={scrollToCheckout}
           >
-            <Zap size={13} className="jump-zap-icon" />
-            <span>সরাসরি ১-মিনিটে অর্ডার করতে নিচে যান</span>
-            <ArrowRight size={13} />
+            <Zap size={14} className="jump-zap-icon" />
+            <span>সরাসরি ১-মিনিটে অর্ডার ফর্ম পূরণ করতে চাপ দিন</span>
+            <ArrowRight size={14} />
           </button>
           
           <div className="cart-items-list-card">
@@ -207,18 +296,18 @@ function Cart() {
                 <div className="cart-app-item-top">
                   <div className="cart-app-thumb-box">
                     <img 
-                      src={item.image || '/images/khejur-1.jpg'} 
+                      src={item.image || (item.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg')} 
                       alt={item.name} 
                       className="cart-app-thumb-img"
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = '/images/khejur-1.jpg';
+                        e.target.src = item.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg';
                       }}
                     />
                   </div>
                   <div className="cart-app-item-info">
                     <h3 className="cart-app-item-title">{item.name}</h3>
-                    <span className="cart-app-item-sub">Net: 500g Glass Jar</span>
+                    <span className="cart-app-item-sub">Net: {item.weight || '৫০০ গ্রাম'} ফুড গ্রেড প্যাক</span>
                   </div>
                   <button 
                     className="cart-app-trash-btn"
@@ -232,7 +321,7 @@ function Cart() {
                 {/* Bottom Row: Pill Quantity Controls + Item Total Price */}
                 <div className="cart-app-item-bottom">
                   <div className="cart-app-unit-price">
-                    ৳ {item.price.toLocaleString('en-US')} / unit
+                    ৳ {item.price.toLocaleString('en-US')} / পিস
                   </div>
 
                   <div className="cart-app-counter-group">
@@ -242,7 +331,7 @@ function Cart() {
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         aria-label="Decrease quantity"
                       >-</button>
-                      <div className="ios-qty-val" style={{ fontFamily: 'Plus Jakarta Sans' }}>{item.quantity}</div>
+                      <div className="ios-qty-val">{item.quantity}</div>
                       <button 
                         className="ios-qty-btn"
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
@@ -250,7 +339,7 @@ function Cart() {
                       >+</button>
                     </div>
 
-                    <div className="cart-app-item-total" style={{ fontFamily: 'Plus Jakarta Sans' }}>
+                    <div className="cart-app-item-total">
                       ৳ {(item.price * item.quantity).toLocaleString('en-US')}
                     </div>
                   </div>
@@ -263,10 +352,16 @@ function Cart() {
         {/* Right: 1-Step Cash on Delivery Form */}
         <div id="checkout-card-section" className="cart-right-col">
           <div className="ios-checkout-card">
-            <h2 className="checkout-card-title">ক্যাশ অন ডেলিভারিতে অর্ডার করুন</h2>
-            <p className="checkout-card-sub">
-              পণ্য হাতে পেয়ে দেখে ডেলিভারিম্যানকে মূল্য পরিশোধ করুন
-            </p>
+            <div className="checkout-card-top-head">
+              <span className="checkout-badge-pill">
+                <Lock size={12} color="#10b981" />
+                <span>নিরাপদ ও দ্রুত চেকআউট</span>
+              </span>
+              <h2 className="checkout-card-title">ক্যাশ অন ডেলিভারি অর্ডার</h2>
+              <p className="checkout-card-sub">
+                পার্সেল হাতে পেয়ে সম্পূর্ণ চেক করে মূল্য পরিশোধ করবেন।
+              </p>
+            </div>
 
             <form onSubmit={handlePlaceOrder} className="checkout-form-body">
               <div className="form-field-group">
@@ -275,7 +370,7 @@ function Cart() {
                   type="text" 
                   id="customerName"
                   className="ios-input-field" 
-                  placeholder="যেমন: আশিকুর রহমান"
+                  placeholder="যেমন: মোঃ আশিকুর রহমান"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   autoComplete="name"
@@ -285,7 +380,7 @@ function Cart() {
               </div>
 
               <div className="form-field-group">
-                <label htmlFor="customerPhone" className="ios-field-label">মোবাইল নম্বর *</label>
+                <label htmlFor="customerPhone" className="ios-field-label">সচল মোবাইল নম্বর *</label>
                 <input 
                   type="tel" 
                   id="customerPhone"
@@ -298,6 +393,7 @@ function Cart() {
                   enterKeyHint="next"
                   required
                 />
+                <span className="field-helper-hint">ডেলিভারির আগে রাইডার এই নম্বরে কল করবেন।</span>
               </div>
 
               <div className="form-field-group">
@@ -305,7 +401,7 @@ function Cart() {
                 <textarea 
                   id="customerAddress"
                   className="ios-textarea-field" 
-                  placeholder="বাসা নং, রোড নং, এলাকা ও থানার নাম লিখুন..."
+                  placeholder="বাসা নং, রোড নং, এলাকা, থানা ও জেলার নাম লিখুন..."
                   rows="3"
                   value={customerAddress}
                   onChange={(e) => setCustomerAddress(e.target.value)}
@@ -326,9 +422,11 @@ function Cart() {
                     <div className="zone-radio-circle"></div>
                     <div className="zone-info-text">
                       <span className="zone-title-text">ঢাকার ভেতরে</span>
-                      <span className="zone-delivery-time">১-২ দিনে ডেলিভারি</span>
+                      <span className="zone-delivery-time">১-২ দিনে দ্রুত ডেলিভারি</span>
                     </div>
-                    <span className="zone-price-tag">৳ ৭০</span>
+                    <span className="zone-price-tag">
+                      {isFreeShipping ? 'ফ্রি' : '৳ ৭০'}
+                    </span>
                   </div>
 
                   <div 
@@ -337,10 +435,12 @@ function Cart() {
                   >
                     <div className="zone-radio-circle"></div>
                     <div className="zone-info-text">
-                      <span className="zone-title-text">ঢাকার বাইরে</span>
-                      <span className="zone-delivery-time">২-৩ দিনে ডেলিভারি</span>
+                      <span className="zone-title-text">ঢাকার বাইরে (সারাদেশে)</span>
+                      <span className="zone-delivery-time">২-৩ দিনে হোম ডেলিভারি</span>
                     </div>
-                    <span className="zone-price-tag">৳ ১৩০</span>
+                    <span className="zone-price-tag">
+                      {isFreeShipping ? 'ফ্রি' : '৳ ১৩০'}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -348,16 +448,22 @@ function Cart() {
               {/* Order Calculation */}
               <div className="checkout-summary-box">
                 <div className="summary-row-item">
-                  <span>পণ্যের মূল্য (Subtotal):</span>
-                  <span style={{ fontFamily: 'Plus Jakarta Sans' }}>৳ {cartTotal.toLocaleString('en-US')}</span>
+                  <span>পণ্যের মোট মূল্য (Subtotal):</span>
+                  <span>৳ {cartTotal.toLocaleString('en-US')}</span>
                 </div>
                 <div className="summary-row-item">
                   <span>ডেলিভারি চার্জ:</span>
-                  <span style={{ fontFamily: 'Plus Jakarta Sans' }}>৳ {shippingCost.toLocaleString('en-US')}</span>
+                  <span>
+                    {isFreeShipping ? (
+                      <strong style={{ color: '#10b981' }}>৳ ০ (ফ্রি ডেলিভারি)</strong>
+                    ) : (
+                      `৳ ${shippingCost.toLocaleString('en-US')}`
+                    )}
+                  </span>
                 </div>
                 <div className="summary-row-total">
-                  <span>সর্বমোট প্রদেয় (Total):</span>
-                  <span className="total-highlight-amount" style={{ fontFamily: 'Plus Jakarta Sans' }}>
+                  <span>সর্বমোট প্রদেয় টাকা (Total):</span>
+                  <span className="total-highlight-amount">
                     ৳ {grandTotal.toLocaleString('en-US')}
                   </span>
                 </div>
@@ -366,10 +472,18 @@ function Cart() {
               <button 
                 type="submit" 
                 className="btn btn-primary checkout-submit-btn"
+                disabled={isSubmitting}
               >
-                <span>অর্ডার নিশ্চিত করুন (৳ {grandTotal.toLocaleString('en-US')})</span>
+                <span>
+                  {isSubmitting ? 'অর্ডার প্রসেস হচ্ছে...' : `অর্ডার নিশ্চিত করুন (৳ ${grandTotal.toLocaleString('en-US')})`}
+                </span>
                 <ArrowRight size={16} />
               </button>
+
+              <div className="checkout-security-notice">
+                <ShieldCheck size={14} color="#10b981" />
+                <span>১০০% ক্যাশ অন ডেলিভারি • পার্সেল চেক করে পেমেন্ট</span>
+              </div>
             </form>
           </div>
         </div>

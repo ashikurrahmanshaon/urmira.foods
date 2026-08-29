@@ -10,7 +10,7 @@ export const blogPosts = [
     readTime: '4 min read',
     image: '/images/ghee-1.jpg',
     excerpt: 'গাওয়া ঘি কেবল খাবারের স্বাদই বাড়ায় না, এটি রোগ প্রতিরোধ ক্ষমতা বৃদ্ধি, হজম শক্তি ও মস্তিষ্কের কার্যক্ষমতা বাড়াতে অন্যতম সেরা সুপারফুড।',
-    tags: ['Pure Ghee', 'Organic Food', 'Health Tips', 'Ayurveda'],
+    tags: ['Pure Ghee', 'গাওয়া ঘি', 'Organic Food', 'Health Tips', 'Ayurveda'],
     content: [
       {
         heading: '১. অন্ত্রের স্বাস্থ্য ও দ্রুত হজমে সহায়ক',
@@ -42,7 +42,7 @@ export const blogPosts = [
     readTime: '5 min read',
     image: '/images/khejur-1.jpg',
     excerpt: 'আজওয়া ও মরিয়ম খেজুর, প্রাকৃতিক মধু, কাজুবাদাম, কাঠবাদাম ও পেস্তার সমন্বয়ে তৈরি পাওয়ার বোম্ব কেন যেকোনো কৃত্রিম সাপ্লিমেন্টের চেয়ে সেরা।',
-    tags: ['Power Bomb', 'Dates & Nuts', 'Instant Energy', 'Fitness'],
+    tags: ['Power Bomb', 'Dates & Nuts', 'Instant Energy', 'Fitness', 'খেজুর পাওয়ার বোম্ব'],
     content: [
       {
         heading: '১. শূন্য কোলেস্টেরল ও শতভাগ প্রাকৃতিক ফাইবার',
@@ -70,7 +70,7 @@ export const blogPosts = [
     readTime: '3 min read',
     image: '/images/ghee-2.jpg',
     excerpt: 'বাজারে ভেজাল ঘিয়ের ছড়াছড়ির মধ্যে আসল দানাদার গাওয়া ঘি শনাক্ত করার ঘরোয়া ও বৈজ্ঞানিক সহজ কৌশলগুলো জেনে নিন।',
-    tags: ['Purity Test', 'Real Ghee', 'Consumer Awareness', 'Food Safety'],
+    tags: ['Purity Test', 'Real Ghee', 'খাঁটি ঘি চেনার উপায়', 'Consumer Awareness', 'Food Safety'],
     content: [
       {
         heading: '১. হাতের তালুতে মেল্টিং টেস্ট (Melting Test)',
@@ -83,6 +83,34 @@ export const blogPosts = [
       {
         heading: '৩. আয়োডিন টেস্ট (Starch/Chemical Check)',
         body: 'সামান্য গলানো ঘিয়ে দুই ফোঁটা আয়োডিন যোগ করলে যদি কোনো নীল বা বেগুনি রঙ না আসে, তবে নিশ্চিত থাকুন এতে কোনো ডালডা বা স্টার্চ নেই।'
+      }
+    ],
+    relatedProductId: 1
+  },
+  {
+    id: 4,
+    slug: 'pure-gawa-ghee-price-buying-guide-bangladesh',
+    title: 'বাংলাদেশে খাঁটি গাওয়া ঘি চেনার গাইড ও ন্যায্য মূল্য নির্ধারণের উপায়',
+    englishTitle: 'Pure Gawa Ghee Buying Guide & Best Price in Bangladesh',
+    category: 'Nutrition & Health',
+    author: 'Urmira Food Lab',
+    date: '15 August 2026',
+    readTime: '4 min read',
+    image: '/images/ghee-3.jpg',
+    excerpt: 'খামারিদের প্রস্তুতকৃত আসল দানাদার গাওয়া ঘি কেন অন্যান্য প্যাকেটজাত ঘি থেকে আলাদা এবং কেন খাঁটি ঘিয়ের দাম ন্যায্য হওয়া উচিত জেনে নিন।',
+    tags: ['Gawa Ghee Price', 'গাওয়া ঘি এর দাম', 'Pure Ghee Dhaka', 'Organic Food'],
+    content: [
+      {
+        heading: '১. কেন খাঁটি ঘিয়ের উৎপাদন খরচ বেশি?',
+        body: '১ কেজি খাঁটি গাওয়া ঘি তৈরি করতে প্রায় ২৫ থেকে ৩০ লিটার খাঁটি গরুর দুধের প্রয়োজন হয়। তাই অতি কম দামে কোনো ঘি পাওয়া গেলে তাতে ভেজাল বা ডালডার মিশ্রণ থাকার আশঙ্কা প্রবল।'
+      },
+      {
+        heading: '২. দানাদার টেক্সচার ও প্রাকৃতিক সুবাস',
+        body: 'খাঁটি গাওয়া ঘি স্বাভাবিক তাপমাত্রায় সুন্দর দানাদার রূপ ধারণ করে এবং এতে হালকা বাদামি সুবাস থাকে, যা খাবারে দিলে অতুলনীয় স্বাদ বয়ে আনে।'
+      },
+      {
+        heading: '৩. বিশ্বস্ত উৎস থেকে কেনা',
+        body: 'সরাসরি খামারিদের দুধ থেকে প্রস্তুতকারী এবং ক্যাশ অন ডেলিভারিতে চেক করে কেনার সুযোগ দেয় এমন নির্ভরযোগ্য ব্র্যান্ড নির্বাচন করা বুদ্ধিমানের কাজ।'
       }
     ],
     relatedProductId: 1

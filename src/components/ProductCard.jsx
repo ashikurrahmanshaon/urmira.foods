@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Star, Check, Zap, Sparkles } from 'lucide-react';
+import { ShoppingBag, Star, Check, Zap, Sparkles, Leaf } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 function ProductCard({ product }) {
@@ -24,11 +24,15 @@ function ProductCard({ product }) {
   };
 
   const savings = product.oldPrice ? product.oldPrice - product.price : 0;
+  const discountPercent = product.oldPrice 
+    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) 
+    : 0;
+
   const englishBadge = product.id === 1 ? 'BESTSELLER' : 'HOT SELECTION';
-  const displayBangla = product.id === 1 ? 'খাঁটি গাওয়া ঘি' : 'খেজুরের পাওয়ার বোম্ব';
+  const displayBangla = product.id === 1 ? 'প্রিমিয়াম খাঁটি গাওয়া ঘি' : 'খেজুরের পাওয়ার বোম্ব';
   const subtitle = product.id === 1 
-    ? '১০০% খাঁটি গরুর দুধের মাখন থেকে তৈরি সুগন্ধি গাওয়া ঘি' 
-    : 'প্রিমিয়াম খেজুর, মধু ও ৫ প্রকার বাদামের পুষ্টিকর মিশ্রণ';
+    ? '১০০% খাঁটি গরুর দুধের মাখন থেকে তৈরি সুগন্ধি ও দানাদার গাওয়া ঘি' 
+    : 'প্রিমিয়াম খেজুর, মধু ও ৫ প্রকার বাদামের পুষ্টিকর শক্তিদায়ী ফর্মুলা';
   
   // Use high quality authentic photo
   const cardImage = product.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg';
@@ -47,7 +51,7 @@ function ProductCard({ product }) {
             
             {savings > 0 && (
               <span className="card-floating-badge-discount">
-                SAVE ৳ {savings}
+                {discountPercent}% OFF (SAVE ৳{savings})
               </span>
             )}
           </div>
@@ -66,6 +70,7 @@ function ProductCard({ product }) {
 
           {/* Bottom Glass Tag */}
           <div className="card-floating-weight-chip">
+            <Leaf size={11} color="#10b981" />
             <span>Net: 500g</span>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { X, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Truck, Package } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Truck, Sparkles } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 function CartDrawer() {
@@ -18,7 +18,6 @@ function CartDrawer() {
   const freeShippingThreshold = 2000;
   const progressPercent = Math.min(100, (cartTotal / freeShippingThreshold) * 100);
   const remainingForFree = freeShippingThreshold - cartTotal;
-
   const formattedTotal = cartTotal.toLocaleString('en-US');
 
   return (
@@ -32,16 +31,16 @@ function CartDrawer() {
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <h3 className="drawer-heading-title">Shopping Bag</h3>
-                <span className="drawer-count-pill">{cartCount} {cartCount === 1 ? 'item' : 'items'}</span>
+                <h3 className="drawer-heading-title">শপিং ব্যাগ</h3>
+                <span className="drawer-count-pill">{cartCount} টি পণ্য</span>
               </div>
-              <span className="drawer-sub-bengali">Cash on Delivery Available</span>
+              <span className="drawer-sub-bengali">ক্যাশ অন ডেলিভারি সুবিধা</span>
             </div>
           </div>
           <button 
             className="drawer-close-btn"
             onClick={() => setIsCartDrawerOpen(false)}
-            aria-label="Close"
+            aria-label="Close Shopping Bag"
           >
             <X size={18} />
           </button>
@@ -53,9 +52,9 @@ function CartDrawer() {
             <Truck size={14} color="#10b981" />
             <span>
               {remainingForFree > 0 ? (
-                <>Add <strong>৳ {remainingForFree.toLocaleString('en-US')}</strong> more for <strong>FREE Delivery</strong></>
+                <>আর মাত্র <strong>৳ {remainingForFree.toLocaleString('en-US')}</strong> যোগ করলেই <strong>ফ্রি ডেলিভারি!</strong></>
               ) : (
-                <strong>🎉 Free Delivery Unlocked!</strong>
+                <strong>🎉 অভিনন্দন! ফ্রি ডেলিভারি আনলক হয়েছে!</strong>
               )}
             </span>
           </div>
@@ -71,15 +70,15 @@ function CartDrawer() {
               <div className="empty-bag-circle">
                 <ShoppingBag size={36} color="#054231" />
               </div>
-              <h4>Your Bag is Empty</h4>
-              <p>Explore our pure organic foods.</p>
+              <h4>আপনার শপিং ব্যাগ খালি</h4>
+              <p>আমাদের ১০০% খাঁটি ও নির্ভেজাল খাবারগুলো ঘুরে দেখুন।</p>
               <Link 
                 to="/shop" 
                 className="btn btn-primary" 
                 onClick={() => setIsCartDrawerOpen(false)}
                 style={{ marginTop: '1.25rem' }}
               >
-                <span>Explore Shop</span>
+                <span>প্রোডাক্ট দেখুন</span>
                 <ArrowRight size={15} />
               </Link>
             </div>
@@ -88,12 +87,12 @@ function CartDrawer() {
               <div key={item.id} className="drawer-item-card-ios">
                 <div className="drawer-item-thumbnail">
                   <img 
-                    src={item.image || '/images/khejur-1.jpg'} 
+                    src={item.image || (item.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg')} 
                     alt={item.name} 
                     className="drawer-item-real-img"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = '/images/khejur-1.jpg';
+                      e.target.src = item.id === 1 ? '/images/ghee-1.jpg' : '/images/khejur-1.jpg';
                     }}
                   />
                 </div>
@@ -104,27 +103,27 @@ function CartDrawer() {
                     <button 
                       className="drawer-item-delete-btn"
                       onClick={() => removeFromCart(item.id)}
-                      aria-label="Delete"
+                      aria-label="Delete item"
                     >
                       <Trash2 size={15} />
                     </button>
                   </div>
 
                   <div className="drawer-item-meta-row">
-                    <span className="drawer-item-weight">{item.weight}</span>
-                    <span className="drawer-item-unit-price">৳ {item.price.toLocaleString('en-US')} each</span>
+                    <span className="drawer-item-weight">{item.weight || '৫০০ গ্রাম'}</span>
+                    <span className="drawer-item-unit-price">৳ {item.price.toLocaleString('en-US')} / পিস</span>
                   </div>
                   
                   <div className="drawer-item-bottom-row">
                     <div className="drawer-qty-pill-ios">
                       <button 
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        aria-label="Decrease"
+                        aria-label="Decrease quantity"
                       >-</button>
                       <span className="drawer-qty-num">{item.quantity}</span>
                       <button 
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        aria-label="Increase"
+                        aria-label="Increase quantity"
                       >+</button>
                     </div>
 
@@ -143,12 +142,12 @@ function CartDrawer() {
           <div className="drawer-foot">
             <div className="drawer-subtotal-card">
               <div className="drawer-subtotal-row">
-                <span className="subtotal-label">Subtotal:</span>
+                <span className="subtotal-label">সর্বমোট পণ্যের মূল্য:</span>
                 <strong className="drawer-subtotal-val">৳ {formattedTotal}</strong>
               </div>
               <p className="drawer-tax-note">
                 <ShieldCheck size={13} color="#10b981" />
-                <span>Pay on Delivery • পার্সেল চেক করে পেমেন্ট</span>
+                <span>ক্যাশ অন ডেলিভারি • পার্সেল চেক করে পেমেন্ট</span>
               </p>
             </div>
             
@@ -157,13 +156,13 @@ function CartDrawer() {
               className="btn btn-primary drawer-checkout-btn"
               onClick={() => setIsCartDrawerOpen(false)}
             >
-              <span>Proceed to Checkout</span>
+              <span>অর্ডার করতে এগিয়ে যান</span>
               <ArrowRight size={16} />
             </Link>
 
             <div className="drawer-trust-guarantee">
               <ShieldCheck size={14} color="#10b981" />
-              <span>100% Authentic Quality Guaranteed</span>
+              <span>১০০% খাঁটি ও বিশুদ্ধতার নিশ্চয়তা</span>
             </div>
           </div>
         )}

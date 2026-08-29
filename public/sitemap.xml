@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 1. Homepage (Top Priority) -->
+  <url>
+    <loc>https://urmira.com/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://urmira.com/images/ghee-1.jpg</image:loc>
+      <image:title>URMIRA - 100% Pure Cow Ghee &amp; Khurjur Power Bomb</image:title>
+      <image:caption>১০০% খাঁটি ও নির্ভেজাল গাওয়া ঘি এবং স্পেশাল খেজুর পাওয়ার বোম্ব</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 2. Shop Page -->
+  <url>
+    <loc>https://urmira.com/shop</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 3. Target High-Ranking Product: Pure Cow Ghee (খাঁটি গাওয়া ঘি) -->
+  <url>
+    <loc>https://urmira.com/product/1</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://urmira.com/images/ghee-1.jpg</image:loc>
+      <image:title>প্রিমিয়াম খাঁটি গাওয়া ঘি (Pure Cow Ghee 500g)</image:title>
+      <image:caption>১০০% খাঁটি গরুর দুধের মাখন থেকে তৈরি সুগন্ধি ও দানাদার গাওয়া ঘি</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://urmira.com/images/ghee-2.jpg</image:loc>
+      <image:title>Pure Gawa Ghee Texture &amp; Purity</image:title>
+    </image:image>
+  </url>
+
+  <!-- 4. Target Product: Khurjur Power Bomb (খেজুরের পাওয়ার বোম্ব) -->
+  <url>
+    <loc>https://urmira.com/product/2</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://urmira.com/images/khejur-1.jpg</image:loc>
+      <image:title>খেজুরের পাওয়ার বোম্ব (Khurjur Power Bomb 500g)</image:title>
+      <image:caption>প্রিমিয়াম খেজুর, মধু ও ৫ প্রকার বাদামের শক্তিশালী পুষ্টিকর ফর্মুলা</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 5. Blog Index -->
+  <url>
+    <loc>https://urmira.com/blog</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 6. Blog Article 1: Ghee Health Benefits (SEO Target: Ghee Benefits) -->
+  <url>
+    <loc>https://urmira.com/blog/1</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://urmira.com/images/ghee-1.jpg</image:loc>
+      <image:title>১০টি কারণ: খাঁটি গাওয়া ঘি কেন প্রতিদিন খাওয়া উচিত (বিজ্ঞানসম্মত উপকারিতা)</image:title>
+    </image:image>
+  </url>
+
+  <!-- 7. Blog Article 2: Khurjur Power Bomb Energy Benefits -->
+  <url>
+    <loc>https://urmira.com/blog/2</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://urmira.com/images/khejur-1.jpg</image:loc>
+      <image:title>খেজুরের পাওয়ার বোম্ব: প্রাকৃতিক পুষ্টি ও ইনস্ট্যান্ট শক্তির জাদুকরী উৎস</image:title>
+    </image:image>
+  </url>
+
+  <!-- 8. Blog Article 3: How to Test Pure Ghee at Home (SEO Target: Ghee Purity Test) -->
+  <url>
+    <loc>https://urmira.com/blog/3</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://urmira.com/images/ghee-2.jpg</image:loc>
+      <image:title>সহজ ৪টি উপায়: ঘরে বসেই কীভাবে চিনবেন আসল খাঁটি গাওয়া ঘি</image:title>
+    </image:image>
+  </url>
+
+  <!-- 9. Blog Article 4: Pure Gawa Ghee Buying Guide & Best Price (SEO Target: Ghee Price & Guide) -->
+  <url>
+    <loc>https://urmira.com/blog/4</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+    <image:image>
+      <image:loc>https://urmira.com/images/ghee-3.jpg</image:loc>
+      <image:title>বাংলাদেশে খাঁটি গাওয়া ঘি চেনার গাইড ও ন্যায্য মূল্য নির্ধারণের উপায়</image:title>
+    </image:image>
+  </url>
+
+  <!-- 10. Contact & Support -->
+  <url>
+    <loc>https://urmira.com/contact</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- 10. Shipping & Delivery Policy -->
+  <url>
+    <loc>https://urmira.com/shipping-delivery</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+
+  <!-- 11. Return & Refund Policy -->
+  <url>
+    <loc>https://urmira.com/return-policy</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+
+</urlset>

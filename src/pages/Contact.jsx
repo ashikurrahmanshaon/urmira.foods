@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, MessageSquare, Send, CheckCircle2, ShieldCheck, Loader2, Sparkles, ArrowRight, User, PhoneCall } from 'lucide-react';
+import SEO from '../components/SEO';
 
 function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -7,7 +8,7 @@ function Contact() {
   const [formData, setFormData] = useState({ 
     name: '', 
     phone: '', 
-    email: '',
+    email: '', 
     message: '' 
   });
 
@@ -75,6 +76,12 @@ function Contact() {
 
   return (
     <div className="contact-page-wrap">
+      <SEO 
+        title="যোগাযোগ ও কাস্টমার সাপোর্ট | হেল্পলাইন: 01712-345678"
+        description="উর্মিরা ফুডস কাস্টমার কেয়ার হেল্পলাইন ও WhatsApp সাপোর্ট। খাঁটি গাওয়া ঘি ও পণ্যের বাল্ক অর্ডার বা যেকোনো তথ্যের জন্য সরাসরি যোগাযোগ করুন।"
+        keywords="উর্মিরা ফুডস ফোন নম্বর, gawa ghee helpline, organic food customer service dhaka"
+        canonicalPath="/contact"
+      />
       <div className="container contact-container">
         {/* Header */}
         <header className="contact-header">

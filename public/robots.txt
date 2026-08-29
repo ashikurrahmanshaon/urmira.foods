@@ -1,0 +1,17 @@
+# Robots.txt for URMIRA.COM
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+# Googlebot / Bingbot specific crawl speed optimization
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+
+# Sitemap Location
+Sitemap: https://urmira.com/sitemap.xml

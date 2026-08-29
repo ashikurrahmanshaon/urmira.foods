@@ -15,6 +15,7 @@ import BlogPost from './pages/BlogPost';
 import ShippingDelivery from './pages/ShippingDelivery';
 import ReturnPolicy from './pages/ReturnPolicy';
 import Contact from './pages/Contact';
+import FloatingSupportWidget from './components/FloatingSupportWidget';
 
 function AppLayout() {
   const location = useLocation();
@@ -49,6 +50,7 @@ function AppLayout() {
       </main>
       {!isAdmin && <Footer />}
       {!isAdmin && <CartDrawer />}
+      {!isAdmin && <FloatingSupportWidget />}
       <Toast />
     </div>
   );

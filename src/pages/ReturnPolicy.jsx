@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
-import { RotateCcw, ShieldAlert, CheckCircle2, PhoneCall, ArrowRight } from 'lucide-react';
+import { RotateCcw, CheckCircle2, PhoneCall, ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 function ReturnPolicy() {
   return (
     <div className="policy-page-wrap">
+      <SEO 
+        title="রিটার্ন ও রিফান্ড পলিসি | ১০০% সন্তুষ্টির নিশ্চয়তা"
+        description="উর্মিরা ফুডস রিটার্ন ও রিফান্ড পলিসি। ডেলিভারির সময় পার্সেল চেক করে নেওয়ার সুবিধা এবং ত্রুটিযুক্ত পণ্যের ক্ষেত্রে ২৪ ঘণ্টায় ফ্রি রিটার্ন ও রিফান্ড নিশ্চয়তা।"
+        keywords="urmira return policy, refund guarantee, ghee replacement bd"
+        canonicalPath="/return-policy"
+      />
       <div className="container policy-container">
         {/* Header */}
         <header className="policy-header">

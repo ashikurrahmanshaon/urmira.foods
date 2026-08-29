@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
 import { Truck, Clock, ShieldCheck, MapPin, CheckCircle2, ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 function ShippingDelivery() {
   return (
     <div className="policy-page-wrap">
+      <SEO 
+        title="ডেলিভারি ও শিপিং পলিসি | ক্যাশ অন ডেলিভারি"
+        description="উর্মিরা ফুডস ডেলিভারি ও শিপিং পলিসি। ঢাকার ভেতরে ২৪-৪৮ ঘণ্টায় ৳৭০ এবং সারাদেশে ২-৩ দিনে ৳১৩০ তে হোম ডেলিভারি। ৳২০০০+ অর্ডারে ফ্রি ডেলিভারি।"
+        keywords="urmira shipping policy, cash on delivery bangladesh, ghee home delivery"
+        canonicalPath="/shipping-delivery"
+      />
       <div className="container policy-container">
         {/* Header */}
         <header className="policy-header">
