@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Phone, Menu, X, Leaf, Sparkles, Truck, ShieldCheck } from 'lucide-react';
+import { ShoppingBag, Menu, X, ShieldCheck, Phone } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import {
+  NaturalLeafIllustration,
+  HotlineIllustration
+} from './Illustrations';
 
 function Header() {
   const location = useLocation();
@@ -45,42 +49,13 @@ function Header() {
 
   return (
     <>
-      {/* 1. Ultra-Clean Top Announcement Strip */}
-      <div className="top-announcement-strip">
-        <div className="container announcement-inner">
-          <div className="announcement-items-flow">
-            <span className="announcement-item">
-              <Leaf size={12} color="#10b981" />
-              <span>১০০% প্রাকৃতিক ও নির্ভেজাল খাদ্যপণ্য</span>
-            </span>
-            <span className="announcement-dot">•</span>
-            <span className="announcement-item">
-              <Truck size={12} color="#10b981" />
-              <span>সারাদেশে ক্যাশ অন ডেলিভারি (পার্সেল চেক করে পেমেন্ট)</span>
-            </span>
-            <span className="announcement-dot">•</span>
-            <span className="announcement-item highlight-tag">
-              <Sparkles size={12} color="#f59e0b" />
-              <span>৳ ২,০০০+ অর্ডারে ডেলিভারি চার্জ সম্পূর্ণ ফ্রি!</span>
-            </span>
-          </div>
-
-          <div className="announcement-hotline-quick">
-            <a href="tel:01712345678" className="announcement-call-link">
-              <Phone size={11} />
-              <span>হেল্পলাইন: 01712-345678</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Floating Glass Site Header */}
+      {/* Floating Glass Site Header */}
       <header className={`site-header ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className={`container header-inner ${isScrolled ? 'inner-scrolled' : ''}`}>
           {/* Brand Logo */}
           <Link to="/" className="header-logo-group" onClick={() => setMobileNavOpen(false)}>
             <div className="logo-leaf-icon">
-              <Leaf size={16} color="#ffffff" />
+              <NaturalLeafIllustration size={20} />
             </div>
             <div className="logo-text-wrapper">
               <span className="logo-brand-title">URMIRA</span>
@@ -158,7 +133,7 @@ function Header() {
               <div className="mobile-sheet-head">
                 <div className="sheet-brand">
                   <div className="logo-leaf-icon" style={{ width: '28px', height: '28px' }}>
-                    <Leaf size={14} color="#ffffff" />
+                    <NaturalLeafIllustration size={20} />
                   </div>
                   <span style={{ fontWeight: '900', color: '#054231', fontSize: '1.1rem' }}>URMIRA</span>
                 </div>
@@ -192,11 +167,11 @@ function Header() {
                   href="tel:01712345678" 
                   className="mobile-sheet-hotline-btn"
                 >
-                  <Phone size={15} />
+                  <HotlineIllustration size={16} />
                   <span>কল করুন: 01712-345678</span>
                 </a>
                 <div className="mobile-sheet-guarantee">
-                  <ShieldCheck size={13} color="#10b981" />
+                  <NaturalLeafIllustration size={15} />
                   <span>১০০% খাঁটি ও নির্ভেজাল খাবার</span>
                 </div>
               </div>

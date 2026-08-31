@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, MessageSquare, Send, CheckCircle2, ShieldCheck, Loader2, Sparkles, ArrowRight, User, PhoneCall } from 'lucide-react';
 import SEO from '../components/SEO';
+import { HotlineIllustration, WhatsAppConciergeIllustration, NaturalLeafIllustration } from '../components/Illustrations';
 
 function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,7 +30,7 @@ function Contact() {
         body: JSON.stringify({
           access_key: 'YOUR_ACCESS_KEY_OR_PUBLIC_FALLBACK',
           from_name: `Urmira Website Inquiry: ${formData.name}`,
-          subject: `🌿 নতুন কাস্টমার মেসেজ: ${formData.name} (${formData.phone})`,
+          subject: `নতুন কাস্টমার মেসেজ: ${formData.name} (${formData.phone})`,
           name: formData.name,
           phone: formData.phone,
           email: formData.email || 'not-provided@customer.com',
@@ -86,7 +87,7 @@ function Contact() {
         {/* Header */}
         <header className="contact-header">
           <div className="contact-badge-pill">
-            <MessageSquare size={14} color="#10b981" />
+            <HotlineIllustration size={16} />
             <span>24/7 CUSTOMER CARE & HELPLINE</span>
           </div>
           <h1 className="contact-title">

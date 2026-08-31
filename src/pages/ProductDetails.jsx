@@ -18,6 +18,13 @@ import {
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 import SEO from '../components/SEO';
+import {
+  NaturalLeafIllustration,
+  FreeGiftIllustration,
+  ArtisanTrustShieldIllustration,
+  PureGheeClayMatkaIllustration,
+  PowerBombBowlIllustration
+} from '../components/Illustrations';
 
 function ProductDetails() {
   const { id } = useParams();
@@ -158,7 +165,7 @@ function ProductDetails() {
               {/* Top Badges */}
               <div className="gallery-badges-overlay">
                 <span className="gallery-floating-badge">
-                  <Sparkles size={12} />
+                  <FreeGiftIllustration size={14} />
                   <span>{englishBadge}</span>
                 </span>
                 <span className="gallery-counter-tag">
@@ -185,7 +192,7 @@ function ProductDetails() {
                 {/* Floating Bottom Pills */}
                 <div className="gallery-bottom-overlay">
                   <div className="gallery-proof-pill">
-                    <ShieldCheck size={14} color="#10b981" />
+                    <ArtisanTrustShieldIllustration size={16} />
                     <span>১০০% খাঁটি ও ল্যাব টেস্টেড</span>
                   </div>
 
@@ -199,7 +206,7 @@ function ProductDetails() {
                 {gallery.length > 1 && (
                   <>
                     <button 
-                      type="button"
+                      type="button" 
                       className="gallery-arrow-button arrow-prev" 
                       onClick={handlePrevImage}
                       aria-label="Previous Image"
@@ -207,7 +214,7 @@ function ProductDetails() {
                       <ChevronLeft size={20} />
                     </button>
                     <button 
-                      type="button"
+                      type="button" 
                       className="gallery-arrow-button arrow-next" 
                       onClick={handleNextImage}
                       aria-label="Next Image"
@@ -249,7 +256,7 @@ function ProductDetails() {
           <div className="product-info-column">
             <div className="product-info-card">
               <span className="info-top-badge">
-                <Award size={13} />
+                <NaturalLeafIllustration size={15} />
                 <span>{englishBadge}</span>
               </span>
               

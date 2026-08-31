@@ -1,9 +1,16 @@
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-import { Leaf, ShoppingBag, Sparkles, ArrowRight, ShieldCheck, Truck } from 'lucide-react';
+import { ShoppingBag, ArrowRight } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import SEO from '../components/SEO';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
+import {
+  NaturalLeafIllustration,
+  FreeGiftIllustration,
+  EcoDeliveryIllustration,
+  CashOnDeliveryIllustration,
+  ArtisanTrustShieldIllustration
+} from '../components/Illustrations';
 
 function Shop() {
   const location = useLocation();
@@ -51,7 +58,7 @@ function Shop() {
       {/* Header */}
       <div className="section-header-ios" style={{ marginBottom: '2.25rem' }}>
         <span className="ios-badge">
-          <Leaf size={13} />
+          <NaturalLeafIllustration size={15} />
           <span>আমাদের সকল পণ্য</span>
         </span>
         <h1 className="section-title-ios">
@@ -75,7 +82,7 @@ function Shop() {
           <div className="shop-combo-callout-card">
             <div className="shop-combo-left">
               <span className="shop-combo-tag">
-                <Sparkles size={12} />
+                <FreeGiftIllustration size={14} />
                 <span>মেগা সেভিংস অফার</span>
               </span>
               <h2 className="shop-combo-title">গাওয়া ঘি ও পাওয়ার বোম্ব মেগা কম্বো</h2>
@@ -117,15 +124,15 @@ function Shop() {
       {/* Trust Badges Bar */}
       <div className="shop-trust-strip">
         <div className="shop-trust-item">
-          <Leaf size={18} color="#10b981" />
+          <NaturalLeafIllustration size={20} />
           <span>১০০% অর্গানিক ও ফ্রেশ</span>
         </div>
         <div className="shop-trust-item">
-          <Truck size={18} color="#10b981" />
+          <EcoDeliveryIllustration size={20} />
           <span>সারাদেশে ক্যাশ অন ডেলিভারি</span>
         </div>
         <div className="shop-trust-item">
-          <ShieldCheck size={18} color="#10b981" />
+          <CashOnDeliveryIllustration size={20} />
           <span>পার্সেল দেখে ও যাচাই করে পেমেন্ট</span>
         </div>
       </div>

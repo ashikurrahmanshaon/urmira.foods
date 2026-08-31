@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
-import { X, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Truck, Sparkles } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import {
+  EcoDeliveryIllustration,
+  FreeGiftIllustration,
+  ArtisanTrustShieldIllustration,
+  NaturalLeafIllustration
+} from './Illustrations';
 
 function CartDrawer() {
   const { 
@@ -49,12 +55,16 @@ function CartDrawer() {
         {/* Free Shipping Progress Bar */}
         <div className="drawer-shipping-progress">
           <div className="progress-text-row">
-            <Truck size={14} color="#10b981" />
+            {remainingForFree > 0 ? (
+              <EcoDeliveryIllustration size={16} />
+            ) : (
+              <FreeGiftIllustration size={16} />
+            )}
             <span>
               {remainingForFree > 0 ? (
                 <>আর মাত্র <strong>৳ {remainingForFree.toLocaleString('en-US')}</strong> যোগ করলেই <strong>ফ্রি ডেলিভারি!</strong></>
               ) : (
-                <strong>🎉 অভিনন্দন! ফ্রি ডেলিভারি আনলক হয়েছে!</strong>
+                <strong>অভিনন্দন! ফ্রি ডেলিভারি আনলক হয়েছে!</strong>
               )}
             </span>
           </div>
@@ -146,7 +156,7 @@ function CartDrawer() {
                 <strong className="drawer-subtotal-val">৳ {formattedTotal}</strong>
               </div>
               <p className="drawer-tax-note">
-                <ShieldCheck size={13} color="#10b981" />
+                <NaturalLeafIllustration size={14} />
                 <span>ক্যাশ অন ডেলিভারি • পার্সেল চেক করে পেমেন্ট</span>
               </p>
             </div>
@@ -161,7 +171,7 @@ function CartDrawer() {
             </Link>
 
             <div className="drawer-trust-guarantee">
-              <ShieldCheck size={14} color="#10b981" />
+              <ArtisanTrustShieldIllustration size={16} />
               <span>১০০% খাঁটি ও বিশুদ্ধতার নিশ্চয়তা</span>
             </div>
           </div>

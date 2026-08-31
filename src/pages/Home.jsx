@@ -1,25 +1,30 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
-  ShieldCheck, 
-  Truck, 
   ArrowRight, 
-  Award, 
-  Leaf, 
-  Star, 
   ChevronDown, 
   CheckCircle2, 
-  HeartHandshake, 
-  PhoneCall, 
-  Sparkles, 
-  Zap,
   Droplet,
-  Check
+  Check,
+  Star,
+  HeartHandshake,
+  PhoneCall
 } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import SEO from '../components/SEO';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
+import {
+  NaturalLeafIllustration,
+  EcoDeliveryIllustration,
+  FreeGiftIllustration,
+  PureGheeClayMatkaIllustration,
+  PowerBombBowlIllustration,
+  ArtisanTrustShieldIllustration,
+  HappyFamilyCareIllustration,
+  CashOnDeliveryIllustration,
+  CustomerDelightIllustration
+} from '../components/Illustrations';
 
 function Home() {
   const navigate = useNavigate();
@@ -146,7 +151,7 @@ function Home() {
             {/* Left Content Column */}
             <div className="hero-content-block">
               <div className="hero-badge-capsule">
-                <Leaf size={14} className="hero-leaf-spin" />
+                <NaturalLeafIllustration size={18} className="hero-leaf-spin" />
                 <span>১০০% বিশুদ্ধ ও হস্তনির্মিত প্রাকৃতিক খাবার</span>
               </div>
 
@@ -177,15 +182,15 @@ function Home() {
               {/* Authentic Bengali Trust Promises */}
               <div className="hero-ios-trust-capsules">
                 <div className="trust-pill-authentic">
-                  <Leaf size={15} color="#10b981" />
+                  <NaturalLeafIllustration size={16} />
                   <span>১০০% খাঁটি ও নির্ভেজাল</span>
                 </div>
                 <div className="trust-pill-authentic">
-                  <Award size={15} color="#10b981" />
+                  <ArtisanTrustShieldIllustration size={17} />
                   <span>খামারিদের মাখনে প্রস্তুত</span>
                 </div>
                 <div className="trust-pill-authentic">
-                  <Truck size={15} color="#10b981" />
+                  <EcoDeliveryIllustration size={18} />
                   <span>ক্যাশ অন ডেলিভারি (চেক করে পেমেন্ট)</span>
                 </div>
               </div>
@@ -270,14 +275,14 @@ function Home() {
         </div>
       </section>
 
-      {/* 2. Iconic iOS Trust Metrics Section */}
+      {/* 2. Iconic Handcrafted Trust Metrics Section */}
       <section className="stats-strip-wrap">
         <div className="container">
           <div className="stats-grid-four">
             {/* Metric 1 */}
             <div className="stat-card-luxury">
               <div className="stat-icon-hub icon-hub-emerald">
-                <HeartHandshake size={20} color="#054231" />
+                <HappyFamilyCareIllustration size={38} />
               </div>
               <div className="stat-text-stack">
                 <div className="stat-number">৫,০০০+</div>
@@ -289,7 +294,7 @@ function Home() {
             {/* Metric 2 */}
             <div className="stat-card-luxury">
               <div className="stat-icon-hub icon-hub-green">
-                <Leaf size={20} color="#10b981" />
+                <NaturalLeafIllustration size={38} />
               </div>
               <div className="stat-text-stack">
                 <div className="stat-number">১০০%</div>
@@ -301,7 +306,7 @@ function Home() {
             {/* Metric 3 */}
             <div className="stat-card-luxury">
               <div className="stat-icon-hub icon-hub-teal">
-                <Truck size={20} color="#054231" />
+                <CashOnDeliveryIllustration size={38} />
               </div>
               <div className="stat-text-stack">
                 <div className="stat-number">৬৪ জেলায়</div>
@@ -313,7 +318,7 @@ function Home() {
             {/* Metric 4 */}
             <div className="stat-card-luxury">
               <div className="stat-icon-hub icon-hub-gold">
-                <Star size={20} color="#d97706" />
+                <CustomerDelightIllustration size={38} />
               </div>
               <div className="stat-text-stack">
                 <div className="stat-number">৪.৯ ★</div>
@@ -330,7 +335,7 @@ function Home() {
         <div className="container">
           <div className="section-header-ios">
             <span className="ios-badge-animated">
-              <Leaf size={14} className="badge-leaf-pulse" />
+              <NaturalLeafIllustration size={16} className="badge-leaf-pulse" />
               <span>আমাদের স্পেশাল কালেকশন</span>
             </span>
             <h2 className="section-title-ios">প্রিমিয়াম অর্গানিক পণ্য</h2>
@@ -352,7 +357,7 @@ function Home() {
         <div className="container">
           <div className="section-header-ios">
             <span className="ios-badge">
-              <Sparkles size={12} />
+              <FreeGiftIllustration size={14} />
               <span>খাঁটি উপাদানের প্রতিশ্রুতি</span>
             </span>
             <h2 className="section-title-ios">আমাদের খাবারে কী রয়েছে?</h2>
@@ -365,8 +370,8 @@ function Home() {
             {/* Ghee Card */}
             <div className="ingredient-card-item">
               <div className="ingredient-card-header">
-                <div className="ingredient-badge-disc ghee-disc">
-                  <Droplet size={18} />
+                <div className="ingredient-badge-disc ghee-disc" style={{ width: '56px', height: '56px', background: 'rgba(251, 191, 36, 0.15)', border: '1px solid rgba(217, 119, 6, 0.25)' }}>
+                  <PureGheeClayMatkaIllustration size={40} />
                 </div>
                 <div>
                   <h3 className="ingredient-title">প্রিমিয়াম খাঁটি গাওয়া ঘি</h3>
@@ -390,8 +395,8 @@ function Home() {
             {/* Power Bomb Card */}
             <div className="ingredient-card-item">
               <div className="ingredient-card-header">
-                <div className="ingredient-badge-disc khejur-disc">
-                  <Zap size={18} />
+                <div className="ingredient-badge-disc khejur-disc" style={{ width: '56px', height: '56px', background: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(180, 83, 9, 0.25)' }}>
+                  <PowerBombBowlIllustration size={40} />
                 </div>
                 <div>
                   <h3 className="ingredient-title">খেজুরের পাওয়ার বোম্ব</h3>
@@ -420,7 +425,7 @@ function Home() {
         <div className="container">
           <div className="section-header-ios">
             <span className="ios-badge">
-              <ShieldCheck size={12} />
+              <ArtisanTrustShieldIllustration size={14} />
               <span>বিশ্বস্ততার অঙ্গীকার</span>
             </span>
             <h2 className="section-title-ios">কেন উর্মিরা সেরা?</h2>
@@ -429,8 +434,8 @@ function Home() {
 
           <div className="pillars-grid-three">
             <div className="ios-pillar-card">
-              <div className="ios-pillar-icon icon-fresh">
-                <Leaf size={24} />
+              <div className="ios-pillar-icon icon-fresh" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <NaturalLeafIllustration size={40} />
               </div>
               <h3 className="ios-pillar-title">১০০% অর্গানিক ও ফ্রেশ</h3>
               <p className="ios-pillar-desc">
@@ -442,8 +447,8 @@ function Home() {
             </div>
 
             <div className="ios-pillar-card highlight-pillar">
-              <div className="ios-pillar-icon icon-pure">
-                <ShieldCheck size={24} />
+              <div className="ios-pillar-icon icon-pure" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <PureGheeClayMatkaIllustration size={44} />
               </div>
               <h3 className="ios-pillar-title">হস্তনির্মিত খাঁটি প্রস্তুত প্রণালী</h3>
               <p className="ios-pillar-desc">
@@ -455,8 +460,8 @@ function Home() {
             </div>
 
             <div className="ios-pillar-card">
-              <div className="ios-pillar-icon icon-delivery">
-                <Truck size={24} />
+              <div className="ios-pillar-icon icon-delivery" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <CashOnDeliveryIllustration size={40} />
               </div>
               <h3 className="ios-pillar-title">দ্রুত ক্যাশ অন ডেলিভারি</h3>
               <p className="ios-pillar-desc">

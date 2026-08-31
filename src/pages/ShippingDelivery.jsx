@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Truck, Clock, ShieldCheck, MapPin, CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
+import {
+  EcoDeliveryIllustration,
+  CashOnDeliveryIllustration,
+  ArtisanTrustShieldIllustration,
+  NaturalLeafIllustration
+} from '../components/Illustrations';
 
 function ShippingDelivery() {
   return (
@@ -15,7 +21,7 @@ function ShippingDelivery() {
         {/* Header */}
         <header className="policy-header">
           <div className="policy-badge-pill">
-            <Truck size={14} color="#10b981" />
+            <EcoDeliveryIllustration size={18} />
             <span>DELIVERY & SHIPPING INFORMATION</span>
           </div>
           <h1 className="policy-title">
@@ -29,8 +35,8 @@ function ShippingDelivery() {
         {/* 3-Pillar Timeline Grid */}
         <div className="policy-cards-grid">
           <div className="policy-card-item">
-            <div className="policy-icon-hub">
-              <Clock size={22} color="#054231" />
+            <div className="policy-icon-hub" style={{ width: '56px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <EcoDeliveryIllustration size={32} />
             </div>
             <h3 className="policy-card-heading">ঢাকার ভেতরে ডেলিভারি</h3>
             <p className="policy-card-text">
@@ -40,8 +46,8 @@ function ShippingDelivery() {
           </div>
 
           <div className="policy-card-item">
-            <div className="policy-icon-hub">
-              <MapPin size={22} color="#054231" />
+            <div className="policy-icon-hub" style={{ width: '56px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <NaturalLeafIllustration size={32} />
             </div>
             <h3 className="policy-card-heading">ঢাকার বাইরে সারাদেশে</h3>
             <p className="policy-card-text">
@@ -51,8 +57,8 @@ function ShippingDelivery() {
           </div>
 
           <div className="policy-card-item">
-            <div className="policy-icon-hub">
-              <ShieldCheck size={22} color="#054231" />
+            <div className="policy-icon-hub" style={{ width: '56px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <CashOnDeliveryIllustration size={34} />
             </div>
             <h3 className="policy-card-heading">ক্যাশ অন ডেলিভারি (COD)</h3>
             <p className="policy-card-text">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Send, CheckCircle2, ShieldCheck, Leaf } from 'lucide-react';
+import { Send, CheckCircle2 } from 'lucide-react';
+import { NaturalLeafIllustration, ArtisanTrustShieldIllustration } from './Illustrations';
 
 function Footer() {
   const [email, setEmail] = useState('');
@@ -22,8 +23,8 @@ function Footer() {
           {/* Col 1: Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Leaf size={16} color="#ffffff" />
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <NaturalLeafIllustration size={20} />
               </div>
               <span style={{ fontSize: '1.3rem', fontWeight: '900', color: '#ffffff', letterSpacing: '-0.03em' }}>URMIRA</span>
             </div>
@@ -98,7 +99,7 @@ function Footer() {
             © {new Date().getFullYear()} <strong style={{ color: '#ffffff' }}>URMIRA.COM</strong>. All rights reserved.
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <ShieldCheck size={14} color="#10b981" />
+            <ArtisanTrustShieldIllustration size={18} />
             <span>100% Authentic & Natural Quality Guarantee</span>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { RotateCcw, CheckCircle2, PhoneCall, ArrowRight } from 'lucide-react';
+import { CheckCircle2, PhoneCall, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
+import { ArtisanTrustShieldIllustration } from '../components/Illustrations';
 
 function ReturnPolicy() {
   return (
@@ -15,7 +16,7 @@ function ReturnPolicy() {
         {/* Header */}
         <header className="policy-header">
           <div className="policy-badge-pill">
-            <RotateCcw size={14} color="#10b981" />
+            <ArtisanTrustShieldIllustration size={16} />
             <span>100% SATISFACTION GUARANTEE</span>
           </div>
           <h1 className="policy-title">

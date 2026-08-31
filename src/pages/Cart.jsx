@@ -5,25 +5,28 @@ import {
   ShoppingBag, 
   Check, 
   ArrowLeft, 
-  ShieldCheck, 
-  Truck, 
   ArrowRight, 
-  Lock, 
   Printer, 
   FileText, 
   Zap,
-  Sparkles,
   Copy
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { saveOrder } from '../utils/orderStorage';
 import InvoiceModal from '../components/InvoiceModal';
 import SEO from '../components/SEO';
+import {
+  NaturalLeafIllustration,
+  EcoDeliveryIllustration,
+  FreeGiftIllustration,
+  CashOnDeliveryIllustration,
+  ArtisanTrustShieldIllustration
+} from '../components/Illustrations';
 
 function Cart() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
   
-  const [deliveryZone, setDeliveryZone] = useState('inside'); // inside: 70, outside: 130
+  const [deliveryZone, setDeliveryZone] = useState('inside');
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
@@ -39,7 +42,6 @@ function Cart() {
   const shippingCost = isFreeShipping ? 0 : baseShippingCost;
   const grandTotal = cartTotal + shippingCost;
 
-  // Scroll to top when order is placed
   useEffect(() => {
     if (orderPlaced) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -84,15 +86,12 @@ function Cart() {
     };
 
     try {
-      // Save to orders database & trigger cloud automation
       await saveOrder(orderData);
       setPlacedOrder(orderData);
       setOrderPlaced(true);
       clearCart();
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     } catch (err) {
-      console.error('Order save error:', err);
-      // Fallback local display
       setPlacedOrder(orderData);
       setOrderPlaced(true);
       clearCart();
@@ -103,29 +102,33 @@ function Cart() {
 
   if (orderPlaced && placedOrder) {
     return (
-      <div className="container" style={{ padding: '2.5rem 1rem 5rem', maxWidth: '620px', minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="ios-checkout-card order-success-card" style={{ padding: '2.5rem 1.75rem', width: '100%', boxShadow: '0 20px 60px rgba(5,66,49,0.12)', textAlign: 'center' }}>
-          {/* Animated Green Badge */}
-          <div className="order-success-icon-hub">
-            <Check size={38} strokeWidth={2.8} />
+      <div className="container cart-page-container order-confirmed-viewport">
+        <SEO 
+          title="অর্ডার নিশ্চিতকরণ | ধন্যবাদ" 
+          description="আপনার অর্ডার সফলভাবে গৃহীত হয়েছে।" 
+          canonicalPath="/cart" 
+        />
+        <div className="order-confirmed-success-card">
+          <div className="success-lottie-circle">
+            <Check size={40} color="#ffffff" strokeWidth={3} />
           </div>
 
-          <span className="order-success-pill">
-            <Sparkles size={12} color="#10b981" />
-            <span>অর্ডার সফলভাবে গৃহীত হয়েছে</span>
-          </span>
+          <div className="confirmed-header-block">
+            <span className="confirmed-pill-tag">
+              <NaturalLeafIllustration size={14} />
+              <span>অর্ডার সফল হয়েছে</span>
+            </span>
+            <h1 className="confirmed-title">অভিনন্দন! আপনার অর্ডার কনফার্ম হয়েছে</h1>
+            <p className="confirmed-sub-p">
+              খাঁটি ও প্রাকৃতিক খাবার বেছে নেওয়ার জন্য ধন্যবাদ। আমাদের প্রতিনিধি দ্রুত কল করে পার্সেল নিশ্চিত করবেন।
+            </p>
+          </div>
 
-          <h2 className="order-success-title">
-            ধন্যবাদ, {placedOrder.customerName}!
-          </h2>
-          
-          <p className="order-success-sub">
-            আপনার ক্যাশ অন ডেলিভারি অর্ডারটি গ্রহণ করা হয়েছে। আমাদের প্রতিনিধি দ্রুত আপনার সাথে যোগাযোগ করবেন।
-          </p>
-
-          {/* Tracking ID Bar */}
-          <div className="order-id-badge-bar">
-            <span>অর্ডার ট্র্যাকিং আইডি: <strong>#{placedOrder.orderId}</strong></span>
+          <div className="order-id-highlight-box">
+            <div className="id-text-group">
+              <span className="id-sub-label">আপনার অর্ডার আইডি:</span>
+              <span className="id-code-number">{placedOrder.orderId}</span>
+            </div>
             <button 
               type="button" 
               className="btn-copy-id"
@@ -137,7 +140,6 @@ function Cart() {
             </button>
           </div>
 
-          {/* Receipt Breakdown Card */}
           <div className="order-receipt-summary-box">
             <div className="receipt-row">
               <span className="receipt-lbl">গ্রাহকের নাম:</span>
@@ -158,7 +160,7 @@ function Cart() {
             <div className="receipt-row">
               <span className="receipt-lbl">ডেলিভারি চার্জ:</span>
               <span className="receipt-val">
-                {placedOrder.deliveryFee === 0 ? <strong style={{ color: '#10b981' }}>ফ্রি ডেলিভারি</strong> : `৳ ${placedOrder.deliveryFee}`}
+                {placedOrder.deliveryFee === 0 ? <strong style={{ color: '#10b981' }}>ফ্রি ডেলিভারি</strong> : '৳ ' + placedOrder.deliveryFee}
               </span>
             </div>
             
@@ -170,16 +172,14 @@ function Cart() {
             </div>
           </div>
 
-          {/* Delivery Assurance Pill */}
           <div className="order-delivery-guarantee-strip">
-            <Truck size={17} color="#054231" style={{ flexShrink: 0 }} />
+            <EcoDeliveryIllustration size={22} />
             <span>ডেলিভারিম্যান আসার পর পার্সেল খুলে চেক করে টাকা পরিশোধ করবেন।</span>
           </div>
 
-          {/* Action Buttons */}
           <div className="order-confirmed-actions-grid">
             <button 
-              type="button"
+              type="button" 
               className="btn btn-outline-green" 
               onClick={() => setShowInvoiceModal(true)}
             >
@@ -188,7 +188,7 @@ function Cart() {
             </button>
 
             <button 
-              type="button"
+              type="button" 
               className="btn btn-primary" 
               onClick={() => setShowInvoiceModal(true)}
             >
@@ -203,7 +203,6 @@ function Cart() {
           </Link>
         </div>
 
-        {/* Invoice Modal */}
         {showInvoiceModal && (
           <InvoiceModal 
             order={placedOrder} 
@@ -252,7 +251,6 @@ function Cart() {
         canonicalPath="/cart"
       />
       <div className="cart-luxury-grid">
-        {/* Left: Bag Items */}
         <div className="cart-left-col">
           <div className="cart-clean-header-row">
             <div className="cart-title-clean-group">
@@ -265,20 +263,18 @@ function Cart() {
             </Link>
           </div>
 
-          {/* Free Shipping Alert Banner */}
           {isFreeShipping ? (
             <div className="cart-free-shipping-unlocked-banner">
-              <Sparkles size={16} color="#10b981" />
-              <span>🎉 অভিনন্দন! ৳২,০০০+ টাকার অর্ডারে <strong>ফ্রি ডেলিভারি</strong> কার্যকর হয়েছে!</span>
+              <FreeGiftIllustration size={18} />
+              <span>অভিনন্দন! ৳২,০০০+ টাকার অর্ডারে <strong>ফ্রি ডেলিভারি</strong> কার্যকর হয়েছে!</span>
             </div>
           ) : (
             <div className="cart-free-shipping-goal-banner">
-              <Truck size={15} color="#054231" />
+              <EcoDeliveryIllustration size={18} />
               <span>আর মাত্র <strong>৳ {(2000 - cartTotal).toLocaleString('en-US')}</strong> টাকার পণ্য যোগ করলেই ডেলিভারি চার্জ একদম ফ্রি!</span>
             </div>
           )}
 
-          {/* Mobile Fast Jump to Checkout Strip */}
           <button 
             type="button" 
             className="mobile-quick-jump-banner"
@@ -292,7 +288,6 @@ function Cart() {
           <div className="cart-items-list-card">
             {cartItems.map((item) => (
               <div key={item.id} className="cart-app-item-card">
-                {/* Top Row: Thumbnail + Product Name + Delete Button */}
                 <div className="cart-app-item-top">
                   <div className="cart-app-thumb-box">
                     <img 
@@ -318,7 +313,6 @@ function Cart() {
                   </button>
                 </div>
 
-                {/* Bottom Row: Pill Quantity Controls + Item Total Price */}
                 <div className="cart-app-item-bottom">
                   <div className="cart-app-unit-price">
                     ৳ {item.price.toLocaleString('en-US')} / পিস
@@ -349,12 +343,11 @@ function Cart() {
           </div>
         </div>
 
-        {/* Right: 1-Step Cash on Delivery Form */}
         <div id="checkout-card-section" className="cart-right-col">
           <div className="ios-checkout-card">
             <div className="checkout-card-top-head">
               <span className="checkout-badge-pill">
-                <Lock size={12} color="#10b981" />
+                <CashOnDeliveryIllustration size={16} />
                 <span>নিরাপদ ও দ্রুত চেকআউট</span>
               </span>
               <h2 className="checkout-card-title">ক্যাশ অন ডেলিভারি অর্ডার</h2>
@@ -411,12 +404,11 @@ function Cart() {
                 ></textarea>
               </div>
 
-              {/* Delivery Zone Selector */}
               <div className="form-field-group">
                 <label className="ios-field-label">ডেলিভারি এলাকা নির্বাচন করুন</label>
                 <div className="zone-segmented-picker">
                   <div 
-                    className={`zone-picker-card ${deliveryZone === 'inside' ? 'active' : ''}`}
+                    className={'zone-picker-card ' + (deliveryZone === 'inside' ? 'active' : '')}
                     onClick={() => setDeliveryZone('inside')}
                   >
                     <div className="zone-radio-circle"></div>
@@ -430,7 +422,7 @@ function Cart() {
                   </div>
 
                   <div 
-                    className={`zone-picker-card ${deliveryZone === 'outside' ? 'active' : ''}`}
+                    className={'zone-picker-card ' + (deliveryZone === 'outside' ? 'active' : '')}
                     onClick={() => setDeliveryZone('outside')}
                   >
                     <div className="zone-radio-circle"></div>
@@ -445,7 +437,6 @@ function Cart() {
                 </div>
               </div>
 
-              {/* Order Calculation */}
               <div className="checkout-summary-box">
                 <div className="summary-row-item">
                   <span>পণ্যের মোট মূল্য (Subtotal):</span>
@@ -457,7 +448,7 @@ function Cart() {
                     {isFreeShipping ? (
                       <strong style={{ color: '#10b981' }}>৳ ০ (ফ্রি ডেলিভারি)</strong>
                     ) : (
-                      `৳ ${shippingCost.toLocaleString('en-US')}`
+                      '৳ ' + shippingCost.toLocaleString('en-US')
                     )}
                   </span>
                 </div>
@@ -475,13 +466,13 @@ function Cart() {
                 disabled={isSubmitting}
               >
                 <span>
-                  {isSubmitting ? 'অর্ডার প্রসেস হচ্ছে...' : `অর্ডার নিশ্চিত করুন (৳ ${grandTotal.toLocaleString('en-US')})`}
+                  {isSubmitting ? 'অর্ডার প্রসেস হচ্ছে...' : 'অর্ডার নিশ্চিত করুন (৳ ' + grandTotal.toLocaleString('en-US') + ')'}
                 </span>
                 <ArrowRight size={16} />
               </button>
 
               <div className="checkout-security-notice">
-                <ShieldCheck size={14} color="#10b981" />
+                <ArtisanTrustShieldIllustration size={16} />
                 <span>১০০% ক্যাশ অন ডেলিভারি • পার্সেল চেক করে পেমেন্ট</span>
               </div>
             </form>

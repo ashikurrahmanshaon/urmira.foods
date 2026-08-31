@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Star, Check, Zap, Sparkles, Leaf } from 'lucide-react';
+import { ShoppingBag, Star, Check, Zap } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { NaturalLeafIllustration, FreeGiftIllustration } from './Illustrations';
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -45,7 +46,7 @@ function ProductCard({ product }) {
           {/* Top Badges */}
           <div className="card-top-badges-row">
             <span className="card-floating-badge-primary">
-              <Sparkles size={11} />
+              <FreeGiftIllustration size={13} />
               <span>{englishBadge}</span>
             </span>
             
@@ -70,7 +71,7 @@ function ProductCard({ product }) {
 
           {/* Bottom Glass Tag */}
           <div className="card-floating-weight-chip">
-            <Leaf size={11} color="#10b981" />
+            <NaturalLeafIllustration size={13} />
             <span>Net: 500g</span>
           </div>
         </div>

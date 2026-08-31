@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Phone, MessageCircle, X, Headphones, Sparkles, ChevronUp } from 'lucide-react';
+import { X, ChevronUp } from 'lucide-react';
+import {
+  HotlineIllustration,
+  WhatsAppConciergeIllustration,
+  NaturalLeafIllustration
+} from './Illustrations';
 
 function FloatingSupportWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +35,7 @@ function FloatingSupportWidget() {
       {/* Scroll to Top Pill */}
       {showScrollTop && (
         <button 
-          type="button"
+          type="button" 
           className="btn-scroll-top"
           onClick={handleScrollToTop}
           aria-label="Scroll to top"
@@ -44,7 +49,7 @@ function FloatingSupportWidget() {
         <div className="floating-help-card-popup">
           <div className="help-card-header">
             <div className="help-brand-badge">
-              <Headphones size={15} color="#10b981" />
+              <HotlineIllustration size={18} />
               <span>URMIRA 24/7 SUPPORT</span>
             </div>
             <button 
@@ -68,7 +73,7 @@ function FloatingSupportWidget() {
                 onClick={handleWhatsApp}
               >
                 <div className="help-action-icon-disc wa-disc">
-                  <MessageCircle size={17} />
+                  <WhatsAppConciergeIllustration size={22} />
                 </div>
                 <div className="help-action-text-group">
                   <span className="help-action-main">WhatsApp এ চ্যাট করুন</span>
@@ -82,7 +87,7 @@ function FloatingSupportWidget() {
                 onClick={() => setIsOpen(false)}
               >
                 <div className="help-action-icon-disc call-disc">
-                  <Phone size={17} />
+                  <HotlineIllustration size={20} />
                 </div>
                 <div className="help-action-text-group">
                   <span className="help-action-main">সরাসরি কল করুন</span>
@@ -93,7 +98,7 @@ function FloatingSupportWidget() {
           </div>
 
           <div className="help-card-footer">
-            <Sparkles size={12} color="#10b981" />
+            <NaturalLeafIllustration size={14} />
             <span>১০০% খাঁটি ও নির্ভেজাল খাদ্যপণ্য</span>
           </div>
         </div>
@@ -108,7 +113,7 @@ function FloatingSupportWidget() {
       >
         <span className="floating-badge-ping"></span>
         <div className="trigger-icon-swap">
-          {isOpen ? <X size={22} /> : <MessageCircle size={22} />}
+          {isOpen ? <X size={22} /> : <WhatsAppConciergeIllustration size={24} />}
         </div>
         <span className="floating-trigger-label">হেল্পলাইন</span>
       </button>
@@ -117,3 +122,4 @@ function FloatingSupportWidget() {
 }
 
 export default FloatingSupportWidget;
+
