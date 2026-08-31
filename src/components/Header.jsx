@@ -102,7 +102,7 @@ function Header() {
 
             {/* Truly Iconic Dual-Hub Cart Capsule */}
             <button 
-              className="ios-cart-capsule" 
+              className={`ios-cart-capsule ${location.pathname === '/cart' ? 'capsule-active-cart' : ''}`} 
               onClick={() => setIsCartDrawerOpen(true)}
               aria-label="Open Shopping Bag"
             >
