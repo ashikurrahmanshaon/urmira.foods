@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   CheckCircle2,
   Lock,
-  ChevronRight,
   Truck
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -263,32 +262,22 @@ function Cart() {
         keywords="urmira cart, buy pure cow ghee online, cash on delivery checkout"
         canonicalPath="/cart"
       />
-      <div className="container">
-        {/* Top Breadcrumb & Clean Header */}
-        <div className="cart-page-top-header">
-          <div className="cart-breadcrumb-line">
-            <Link to="/" className="breadcrumb-link">হোম</Link>
-            <ChevronRight size={13} className="breadcrumb-arrow" />
-            <Link to="/shop" className="breadcrumb-link">শপ</Link>
-            <ChevronRight size={13} className="breadcrumb-arrow" />
-            <span className="breadcrumb-current">চেকআউট</span>
-          </div>
-
-          <div className="cart-header-title-bar">
-            <div>
-              <h1 className="cart-main-h1">শপিং ব্যাগ ও চেকআউট</h1>
-              <p className="cart-main-sub">কোনো অগ্রিম পেমেন্ট নেই, পার্সেল হাতে পেয়ে মূল্য পরিশোধ করুন।</p>
-            </div>
-            <Link to="/shop" className="cart-add-more-pill">
-              <span>+ আরও পণ্য যোগ করুন</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* 2-Column Luxury Checkout Grid */}
+      <div className="container cart-aligned-container">
+        {/* Symmetrical 2-Column Luxury Layout */}
         <div className="cart-split-layout-grid">
-          {/* Left Column: Cart Items & Free Delivery Bar */}
+          {/* Left Column: Cart Items Header & Stack */}
           <div className="cart-items-column">
+            {/* Direct Aligned Left Header */}
+            <div className="cart-column-head">
+              <div className="cart-head-title-row">
+                <h1 className="cart-title-clean">শপিং ব্যাগ</h1>
+                <span className="cart-badge-count">{cartItems.length}টি আইটেম</span>
+              </div>
+              <Link to="/shop" className="cart-add-more-link">
+                <span>+ আরও যোগ করুন</span>
+              </Link>
+            </div>
+
             {/* Free Delivery Dynamic Progress Meter */}
             <div className="cart-free-shipping-card">
               <div className="shipping-progress-top-row">
@@ -399,11 +388,11 @@ function Cart() {
               <div className="checkout-sheet-header">
                 <div className="checkout-instant-badge">
                   <Zap size={14} color="#d97706" />
-                  <span>১-মিনিটে ক্যাশ অন ডেলিভারি অর্ডার</span>
+                  <span>১-মিনিট ক্যাশ অন ডেলিভারি</span>
                 </div>
                 <h2 className="checkout-sheet-title">অর্ডার ফর্ম পূরণ করুন</h2>
                 <p className="checkout-sheet-desc">
-                  ডেলিভারির জন্য আপনার প্রয়োজনীয় তথ্যগুলো নিচে পূরণ করুন:
+                  পার্সেল হাতে পেয়ে সম্পূর্ণ চেক করে মূল্য পরিশোধ করবেন।
                 </p>
               </div>
 

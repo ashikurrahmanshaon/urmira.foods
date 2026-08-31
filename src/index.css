@@ -13567,91 +13567,75 @@ textarea::placeholder,
    ========================================================================== */
 
 .cart-master-page-wrapper {
-  padding: 1.5rem 0 5rem;
+  padding: 1rem 0 5rem;
   min-height: calc(100vh - 120px);
 }
 
-.cart-page-top-header {
-  margin-bottom: 1.75rem;
-}
-
-.cart-breadcrumb-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #64748b;
-  margin-bottom: 0.5rem;
-}
-
-.breadcrumb-link {
-  color: #64748b;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.breadcrumb-link:hover {
-  color: #054231;
-}
-
-.breadcrumb-arrow {
-  color: #cbd5e1;
-}
-
-.breadcrumb-current {
-  color: #054231;
-}
-
-.cart-header-title-bar {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.cart-main-h1 {
-  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-  font-weight: 900;
-  color: #054231;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.cart-main-sub {
-  font-size: 0.88rem;
-  color: #64748b;
-  margin-top: 0.25rem;
-}
-
-.cart-add-more-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.45rem 1.1rem;
-  background: #ffffff;
-  border: 1.5px solid #d1fae5;
-  color: #054231;
-  font-size: 0.82rem;
-  font-weight: 800;
-  border-radius: var(--radius-pill);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.25s ease;
-  text-decoration: none;
-}
-
-.cart-add-more-pill:hover {
-  background: #ecfdf5;
-  border-color: #10b981;
-  transform: translateY(-1px);
+.cart-aligned-container {
+  max-width: 1040px !important;
+  margin: 0 auto !important;
+  padding: 0 1rem !important;
 }
 
 /* 2-Column Split Grid */
 .cart-split-layout-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 2rem;
+  gap: 1.75rem;
   align-items: start;
+}
+
+/* Column Header (Direct & Clean) */
+.cart-column-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+  padding-bottom: 0.25rem;
+}
+
+.cart-head-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.cart-title-clean {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #054231;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.cart-badge-count {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #054231;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 0.18rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.cart-add-more-link {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #054231;
+  background: #ffffff;
+  border: 1.5px solid #d1fae5;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.cart-add-more-link:hover {
+  background: #ecfdf5;
+  border-color: #10b981;
+  transform: translateY(-1px);
 }
 
 /* Free Delivery Dynamic Progress Meter */
