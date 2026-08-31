@@ -12818,6 +12818,753 @@ h1, h2, h3, h4 {
   }
 }
 
+/* ==========================================================================
+   9. MASTER SUPER-POLISH & CRYSTAL-CLEAR VIEW ENGINE (Mobile & Desktop)
+   ========================================================================== */
+
+/* Universal SVG Icon Geometry & Crispness */
+svg, .urmira-illus {
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  image-rendering: -webkit-optimize-contrast;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Universal Textbox, Form & Input Super-Clarity */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+select,
+textarea,
+.contact-text-input {
+  width: 100%;
+  font-family: 'Hind Siliguri', 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 500;
+  color: #0f172a !important;
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 16px !important;
+  padding: 0.85rem 1.15rem !important;
+  outline: none !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+select:focus,
+textarea:focus,
+.contact-text-input:focus {
+  border-color: #059669 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.16), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  transform: translateY(-1px);
+}
+
+input::placeholder,
+textarea::placeholder,
+.contact-text-input::placeholder {
+  color: #94a3b8 !important;
+  font-weight: 400;
+}
+
+.contact-form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.4rem;
+}
+
+/* 1. Hero Duo Combo Master Card */
+.hero-combo-luxury-card {
+  background: #ffffff;
+  border-radius: 28px;
+  border: 1px solid rgba(5, 66, 49, 0.12);
+  box-shadow: 0 20px 50px -10px rgba(5, 66, 49, 0.12), 0 4px 16px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-combo-luxury-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 60px -10px rgba(5, 66, 49, 0.18), 0 6px 20px rgba(0, 0, 0, 0.06);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.hero-combo-duo-stage {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.hero-combo-photo-box {
+  position: relative;
+  height: 185px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #f1f5f9;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.combo-stage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-combo-photo-box:hover .combo-stage-img {
+  transform: scale(1.08);
+}
+
+.combo-item-chip {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #054231;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.combo-plus-separator {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #054231 0%, #10b981 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 900;
+  box-shadow: 0 4px 12px rgba(5, 66, 49, 0.25);
+  flex-shrink: 0;
+}
+
+.hero-combo-content-body {
+  padding-top: 0.5rem;
+}
+
+.combo-title-area {
+  margin-bottom: 1rem;
+}
+
+.combo-title-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.combo-main-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #054231;
+  letter-spacing: -0.01em;
+}
+
+.combo-save-pill {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1px solid #fde047;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.combo-sub-caption {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.combo-action-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.combo-price-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.combo-price-current {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #054231;
+}
+
+.combo-price-mrp {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.ios27-combo-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.65rem 0.65rem 1.25rem;
+  background: linear-gradient(135deg, #054231 0%, #047857 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 20px rgba(5, 66, 49, 0.25);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ios27-combo-pill-btn:hover {
+  background: linear-gradient(135deg, #022c22 0%, #054231 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(5, 66, 49, 0.35);
+}
+
+.ios27-combo-arrow-disk {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. Stats Metrics Grid Polish */
+.stats-strip-wrap {
+  padding: 1.25rem 0 2.5rem;
+}
+
+.stats-grid-four {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.15rem;
+}
+
+.stat-card-luxury {
+  background: #ffffff;
+  border: 1px solid rgba(5, 66, 49, 0.08);
+  border-radius: 24px;
+  padding: 1.45rem 1.15rem;
+  box-shadow: 0 6px 20px rgba(5, 66, 49, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stat-card-luxury:hover {
+  transform: translateY(-4px);
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 12px 30px rgba(5, 66, 49, 0.08);
+}
+
+.stat-icon-hub {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.stat-card-luxury:hover .stat-icon-hub {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.icon-hub-emerald {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.icon-hub-green {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.icon-hub-teal {
+  background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+  border: 1px solid rgba(20, 184, 166, 0.25);
+}
+
+.icon-hub-gold {
+  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.stat-text-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #054231;
+  line-height: 1.1;
+  margin-bottom: 0.15rem;
+}
+
+.stat-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.2;
+}
+
+.stat-micro-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.02em;
+  margin-top: 0.15rem;
+}
+
+/* 3. Product Card Real Image Frame Polish */
+.ios-card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 270px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.product-card-real-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card-elevated:hover .product-card-real-img {
+  transform: scale(1.06);
+}
+
+.card-floating-weight-chip {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #054231;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.ios-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.stars-cluster {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.rating-label-clean {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.ios-card-subtitle {
+  font-size: 0.84rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+/* 4. Deep Ingredients Duo Cards Polish */
+.ingredients-duo-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+}
+
+.ingredient-card-item {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 2rem;
+  border: 1px solid rgba(5, 66, 49, 0.09);
+  box-shadow: 0 10px 30px rgba(5, 66, 49, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ingredient-card-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 18px 45px rgba(5, 66, 49, 0.08);
+}
+
+.ingredient-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ingredient-badge-disc {
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ingredient-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #054231;
+  margin-bottom: 0.15rem;
+}
+
+.ingredient-subtitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #d97706;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ingredient-desc {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.ingredient-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.ingredient-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.btn-full-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.78rem;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  font-size: 0.88rem;
+}
+
+/* 5. Customer Testimonials Polish */
+.testimonials-section-wrap {
+  background: linear-gradient(180deg, rgba(245, 245, 247, 0) 0%, rgba(236, 253, 245, 0.4) 100%);
+}
+
+.review-card-item {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.review-card-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(5, 66, 49, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.review-stars-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review-verified-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.review-comment-text {
+  font-size: 0.92rem;
+  color: #334155;
+  line-height: 1.65;
+  font-style: italic;
+}
+
+.review-author-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.author-avatar-initial {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #054231 0%, #10b981 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.author-name {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.author-loc {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+/* 6. FAQ Accordion Section Polish */
+.faq-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.faq-item-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1.5px solid #e2e8f0;
+  padding: 1.15rem 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item-card:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.faq-item-card.active {
+  border-color: #10b981;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.08);
+}
+
+.faq-question-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.faq-q-text {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.4;
+}
+
+.faq-chevron-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #054231;
+  transition: transform 0.3s ease, background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-chevron-circle.rotated {
+  transform: rotate(180deg);
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.faq-answer-block {
+  padding-top: 0.85rem;
+  margin-top: 0.85rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.faq-answer-block p {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.65;
+}
+
+.faq-helpline-card {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 24px;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.helpline-card-h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #054231;
+  margin-bottom: 0.2rem;
+}
+
+.helpline-card-p {
+  font-size: 0.85rem;
+  color: #047857;
+  font-weight: 600;
+}
+
+.helpline-cta-btn {
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+/* 7. Responsive Mobile Overrides for Maximum Clarity */
+@media (max-width: 992px) {
+  .hero-ios-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .stats-grid-four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ingredients-duo-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews-grid-three {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .product-grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid-four {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .stat-card-luxury {
+    padding: 1.15rem;
+  }
+
+  .hero-combo-duo-stage {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .hero-combo-photo-box {
+    height: 160px;
+  }
+
+  .combo-plus-separator {
+    margin: 0 auto;
+  }
+
+  .card-dual-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .faq-helpline-card {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .helpline-cta-btn {
+    width: 100%;
+  }
+}
+
+
 
 
 
